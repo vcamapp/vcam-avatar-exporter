@@ -1,0 +1,51 @@
+name: Bug report
+description: The exporter fails, or the exported avatar is not what you expect
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not attach avatar files, their textures or other third-party assets. Many of them do not allow redistribution under their terms of use. Screenshots are welcome.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you did, what you expected and what happened instead
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the avatar's project
+        2. ...
+    validations:
+      required: true
+  - type: textarea
+    id: versions
+    attributes:
+      label: Versions
+      description: Copy them from the VCC project's package list
+      value: |
+        - VCam Avatar Exporter:
+        - Unity:
+        - lilToon:
+        - UniVRM:
+        - VRChat Avatars SDK:
+        - NDMF:
+        - Modular Avatar (if used):
+        - OS:
+    validations:
+      required: true
+  - type: textarea
+    id: report
+    attributes:
+      label: Export report and console errors
+      description: The report the exporter showed, and any errors or warnings in the Unity console
+      render: text
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: For problems with how the avatar looks, a screenshot in Unity and one of the exported avatar

@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VCam Avatar Exporter</title>
+<meta name="description" content="Bring the avatar you set up for VRChat into VCam and VCam Camera as a VRM.">
+<style>
+:root {
+  --bg: #fdf7fa;
+  --surface: #ffffff;
+  --text: #18181b;
+  --muted: #3f3f46;
+  --border: #fbcfe8;
+  --accent: #db2777;
+  --accent-hover: #be185d;
+  --accent-soft: #fdf2f8;
+  --code-bg: #f4f4f5;
+  --shadow: 0 10px 30px -12px rgba(219, 39, 119, 0.25), 0 4px 12px -6px rgba(0, 0, 0, 0.08);
+  --rainbow: linear-gradient(45deg, #ffa745, #fe869f 30%, #ef7ac8 45%, #a083ed 70%, #43aeff 85%);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141016;
+    --surface: #1f1a22;
+    --text: #f4f4f5;
+    --muted: #a1a1aa;
+    --border: #4a2338;
+    --accent: #f472b6;
+    --accent-hover: #f9a8d4;
+    --accent-soft: #2a1a24;
+    --code-bg: #2a242d;
+    --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Hiragino Maru Gothic Pro", "Hiragino Kaku Gothic Pro", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  line-height: 1.7;
+}
+
+/* Soft blobs behind the hero, like the product cards on vcamapp.com. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 5rem 1rem 3.5rem;
+  text-align: center;
+}
+
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.22;
+}
+
+.hero::before {
+  top: -12rem;
+  left: -12rem;
+  width: 22rem;
+  height: 22rem;
+  background: #fe869f;
+}
+
+.hero::after {
+  top: -12rem;
+  right: -12rem;
+  width: 24rem;
+  height: 24rem;
+  background: #a083ed;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "SF Pro Display", "Hiragino Kaku Gothic Pro", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2.25rem, 7vw, 3.75rem);
+}
+
+/* The wordmark's bottom edge is the letters' baseline, so it lines up with the text beside it. */
+.wordmark {
+  height: 0.8em;
+  margin-right: 0.25em;
+  overflow: visible;
+  fill: currentColor;
+}
+
+/* background-clip: text paints only inside the box, so descenders get clipped without the extra padding. */
+.rainbow {
+  display: inline-block;
+  padding: 0.15em 0;
+  margin: -0.15em 0;
+  background: var(--rainbow);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tagline {
+  max-width: 34rem;
+  margin: 0 auto 2rem;
+  color: var(--muted);
+  font-size: 1.125rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  border: 2px solid var(--accent);
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button.primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.button.primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.button.secondary {
+  background: var(--surface);
+  color: var(--accent);
+}
+
+.button.secondary:hover {
+  background: var(--accent-soft);
+}
+
+.button svg {
+  width: 1.15em;
+  height: 1.15em;
+  fill: currentColor;
+}
+
+main {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 1rem 4rem;
+}
+
+section {
+  margin-top: 3.5rem;
+}
+
+h2 {
+  margin: 0 0 1.5rem;
+  font-size: 1.75rem;
+  text-align: center;
+}
+
+.card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.listing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+}
+
+.listing-label {
+  font-weight: 700;
+}
+
+.listing code {
+  flex: 1 1 18rem;
+  min-width: 0;
+  padding: 0.5rem 0.75rem;
+  overflow-x: auto;
+  border-radius: 0.6rem;
+  background: var(--code-bg);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.copy {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--accent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.copy:hover {
+  background: var(--accent-soft);
+}
+
+.steps {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.steps li {
+  position: relative;
+  padding: 1.25rem 1.5rem 1.25rem 4.5rem;
+  counter-increment: step;
+}
+
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  top: 1.2rem;
+  left: 1.25rem;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--rainbow);
+  color: #fff;
+  font-weight: 800;
+}
+
+.steps code,
+.features code {
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.4rem;
+  background: var(--code-bg);
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+
+.features .card {
+  padding: 1.5rem;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.features .card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.features h3 {
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.features p {
+  margin: 0;
+  color: var(--muted);
+}
+
+a {
+  color: var(--accent);
+}
+
+.notice {
+  padding: 1.25rem 1.5rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+footer {
+  padding: 2rem 1rem 3rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+footer p {
+  margin: 0.25rem 0;
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1><svg class="wordmark" viewBox="150 9 346 87" role="img" aria-label="VCam"><path d="M150.996 12.456H182.738L196.544 64.14H197.016L210.232 12.456H241.974L211.766 96H180.614L150.996 12.456Z"/><path d="M238.55 54.228C238.55 47.5413 239.73 41.484 242.09 36.056C244.45 30.628 247.675 25.9867 251.766 22.132C255.857 18.2773 260.655 15.3273 266.162 13.282C271.747 11.158 277.687 10.096 283.98 10.096C290.431 10.096 296.527 11.158 302.27 13.282C308.013 15.3273 312.811 18.12 316.666 21.66L299.438 42.428C297.865 40.3827 295.898 38.8487 293.538 37.826C291.178 36.7247 288.543 36.174 285.632 36.174C283.272 36.174 281.069 36.6067 279.024 37.472C276.979 38.2587 275.169 39.4387 273.596 41.012C272.101 42.5853 270.921 44.5127 270.056 46.794C269.191 48.9967 268.758 51.4747 268.758 54.228C268.758 56.9813 269.191 59.4593 270.056 61.662C271 63.786 272.219 65.6347 273.714 67.208C275.287 68.7813 277.097 70.0007 279.142 70.866C281.187 71.6527 283.351 72.046 285.632 72.046C288.857 72.046 291.611 71.3773 293.892 70.04C296.252 68.7027 298.101 67.1293 299.438 65.32L316.666 85.97C312.89 89.746 308.249 92.7747 302.742 95.056C297.235 97.2587 290.981 98.36 283.98 98.36C277.687 98.36 271.747 97.298 266.162 95.174C260.655 93.05 255.857 90.0607 251.766 86.206C247.675 82.2727 244.45 77.6313 242.09 72.282C239.73 66.854 238.55 60.836 238.55 54.228ZM354.038 70.276C350.026 70.276 346.801 70.7087 344.362 71.574C341.923 72.4393 340.704 74.052 340.704 76.412C340.704 77.2773 340.901 78.0247 341.294 78.654C341.687 79.2047 342.199 79.6767 342.828 80.07C343.457 80.4633 344.126 80.778 344.834 81.014C345.621 81.1713 346.329 81.25 346.958 81.25C349.554 81.25 351.639 80.424 353.212 78.772C354.785 77.12 355.572 74.996 355.572 72.4V70.276H354.038ZM353.802 56.588C353.802 54.7 353.133 53.3233 351.796 52.458C350.537 51.514 348.846 51.042 346.722 51.042C344.205 51.042 341.805 51.5927 339.524 52.694C337.321 53.7167 335.355 54.936 333.624 56.352L320.054 42.9C323.83 39.2813 328.314 36.4887 333.506 34.522C338.698 32.5553 344.047 31.572 349.554 31.572C355.454 31.572 360.331 32.398 364.186 34.05C368.041 35.702 371.069 37.9833 373.272 40.894C375.553 43.8047 377.127 47.1873 377.992 51.042C378.936 54.8967 379.408 58.9873 379.408 63.314V96H354.746V91.044H354.51C352.937 93.404 350.695 95.0953 347.784 96.118C344.873 97.1407 342.041 97.652 339.288 97.652C336.849 97.652 334.332 97.298 331.736 96.59C329.219 95.882 326.898 94.7413 324.774 93.168C322.729 91.5947 321.037 89.5493 319.7 87.032C318.363 84.5147 317.694 81.4073 317.694 77.71C317.694 73.3833 318.795 69.8827 320.998 67.208C323.279 64.4547 326.151 62.3307 329.612 60.836C333.073 59.2627 336.928 58.2007 341.176 57.65C345.503 57.0993 349.711 56.824 353.802 56.824V56.588ZM428.593 96V63.432C428.593 60.2853 428.199 58.004 427.413 56.588C426.626 55.172 425.328 54.464 423.519 54.464C422.181 54.464 420.883 55.0933 419.625 56.352C418.445 57.6107 417.855 59.8527 417.855 63.078V96H390.597V33.932H417.147V40.776H417.383C418.169 39.7533 419.113 38.77 420.215 37.826C421.395 36.8033 422.693 35.8987 424.109 35.112C425.603 34.2467 427.255 33.578 429.065 33.106C430.874 32.5553 432.841 32.28 434.965 32.28C439.055 32.28 442.595 33.0273 445.585 34.522C448.574 35.938 450.934 38.18 452.665 41.248C454.71 38.7307 457.227 36.6067 460.217 34.876C463.206 33.1453 466.982 32.28 471.545 32.28C475.95 32.28 479.569 33.1453 482.401 34.876C485.311 36.6067 487.593 38.77 489.245 41.366C490.975 43.962 492.155 46.794 492.785 49.862C493.493 52.8513 493.847 55.644 493.847 58.24V96H466.589V62.96C466.589 59.5773 466.156 57.3353 465.291 56.234C464.504 55.054 463.245 54.464 461.515 54.464C459.941 54.464 458.604 55.2113 457.503 56.706C456.401 58.122 455.851 60.246 455.851 63.078V96H428.593Z"/></svg><span class="rainbow">Avatar Exporter</span></h1>
+  <p class="tagline">Bring the avatar you set up for VRChat into <a href="https://vcamapp.com/">VCam</a> and <a href="https://vcamapp.com/vcamcamera">VCam Camera</a> as a VRM.</p>
+  <div class="actions">
+    <a class="button primary" href="vcc://vpm/addRepo?url=$listing_url">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6z"/></svg>
+      Add to VCC
+    </a>
+    <a class="button secondary" href="https://github.com/vcamapp/vcam-avatar-exporter">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+      GitHub
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="card listing">
+    <span class="listing-label">Listing URL</span>
+    <code id="listing-url">$listing_url</code>
+    <button class="copy" type="button" data-copy="listing-url">Copy</button>
+  </div>
+
+  <section>
+    <h2>Install with VCC</h2>
+    <ol class="steps">
+      <li class="card">Select <strong>Add to VCC</strong> above, or in the VRChat Creator Companion go to <strong>Settings &gt; Packages &gt; Add Repository</strong> and enter the listing URL.</li>
+      <li class="card">If you have not added the Modular Avatar listing, which provides NDMF, add <code>https://vpm.nadena.dev/vpm.json</code> the same way.</li>
+      <li class="card">Select <strong>Manage Project</strong> on your avatar's project and add <strong>VCam Avatar Exporter</strong>. VCC installs NDMF and UniVRM with it.</li>
+      <li class="card">If the project does not have lilToon 2.3.4, install it from lilToon's own distribution. Then open <strong>Tools &gt; VCam Avatar Exporter</strong> in Unity.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>What it does</h2>
+    <div class="features">
+      <div class="card"><h3>Keeps your outfit</h3><p>Exports the avatar as it is after Modular Avatar and other non-destructive tools have run.</p></div>
+      <div class="card"><h3>Moves its face</h3><p>Mouth shapes, blinks and ARKit shape keys become VRM expressions and Perfect Sync.</p></div>
+      <div class="card"><h3>Brings your expressions</h3><p>Expressions from hand gestures and expression menus become VRM expressions.</p></div>
+      <div class="card"><h3>Keeps hair swaying</h3><p>PhysBones are converted to VRM spring bones.</p></div>
+      <div class="card"><h3>Works in other VRM apps</h3><p>Every material is exported as MToon, along with your lilToon settings.</p></div>
+      <div class="card"><h3>Leaves your project untouched</h3><p>Export works on a copy of the avatar.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="card notice">Check your avatar's terms of use before you export. Some avatars do not allow use outside VRChat or conversion to VRM.</div>
+  </section>
+</main>
+
+<footer>
+  <p>Made for <a href="https://vcamapp.com/">VCam</a> · <a href="https://github.com/vcamapp/vcam-avatar-exporter/blob/main/LICENSE">MIT License</a></p>
+  <p>Not affiliated with or endorsed by VRChat Inc. or the author of lilToon.</p>
+</footer>
+
+<script>
+for (const button of document.querySelectorAll("[data-copy]")) {
+  button.addEventListener("click", async () => {
+    const text = document.getElementById(button.dataset.copy).textContent;
+    await navigator.clipboard.writeText(text);
+    button.textContent = "Copied";
+    setTimeout(() => { button.textContent = "Copy"; }, 1500);
+  });
+}
+</script>
+</body>
+</html>

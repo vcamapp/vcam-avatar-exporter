@@ -1,0 +1,300 @@
+msgid ""
+msgstr ""
+"Language: ja-JP\n"
+
+msgid "Window:Avatar"
+msgstr "アバター"
+
+msgid "Window:Information"
+msgstr "情報"
+
+msgid "Window:Name"
+msgstr "名前"
+
+msgid "Window:Authors"
+msgstr "作者"
+
+msgid "Window:AuthorsTooltip"
+msgstr "複数の作者はカンマで区切ります。"
+
+msgid "Window:Version"
+msgstr "バージョン"
+
+msgid "Window:Copyright"
+msgstr "著作権表示"
+
+msgid "Window:Contact"
+msgstr "連絡先"
+
+msgid "Window:Thumbnail"
+msgstr "サムネイル"
+
+msgid "Window:Output"
+msgstr "出力"
+
+msgid "Window:MaxTextureSize"
+msgstr "テクスチャの最大サイズ"
+
+msgid "Window:MaxTextureSizeTooltip"
+msgstr "これより大きいテクスチャは縮小します。スマートフォンはどのテクスチャも元の大きさで展開します。"
+
+msgid "Window:OriginalSize"
+msgstr "元のサイズ"
+
+msgid "Window:Winks"
+msgstr "ウインク"
+
+msgid "Window:WinksTooltip"
+msgstr "両目を1つのシェイプキーで閉じるアバターでは、ウインクできるよう片目ずつのシェイプキーに分けます。シェイプキーが2つ増えます。"
+
+msgid "Window:License"
+msgstr "ライセンス"
+
+msgid "Window:LicenseHint"
+msgstr "アバターの利用規約に合わせて設定してください。"
+
+msgid "Window:AvatarPermission"
+msgstr "アバターを使える人"
+
+msgid "Window:CommercialUsage"
+msgstr "商用利用"
+
+msgid "Window:CreditNotation"
+msgstr "クレジット表記"
+
+msgid "Window:Modification"
+msgstr "改変"
+
+msgid "Window:Redistribution"
+msgstr "再配布"
+
+msgid "Window:ViolentUsage"
+msgstr "暴力表現での利用"
+
+msgid "Window:SexualUsage"
+msgstr "性的表現での利用"
+
+msgid "Window:PoliticalOrReligiousUsage"
+msgstr "政治・宗教目的での利用"
+
+msgid "Window:AntisocialOrHateUsage"
+msgstr "反社会的・憎悪表現での利用"
+
+msgid "Window:TermsChecked"
+msgstr "アバターの利用規約で、VRChat の外での利用と VRM への変換が認められていることを確認しました。"
+
+msgid "Window:Export"
+msgstr "VRM を書き出す"
+
+msgid "Window:Exporting"
+msgstr "書き出しています…"
+
+msgid "Window:LastExport"
+msgstr "前回の書き出し"
+
+msgid "Window:NoNotes"
+msgstr "書き出しました。お知らせすることはありません。"
+
+msgid "Window:OK"
+msgstr "OK"
+
+msgid "AvatarPermissionType:onlyAuthor"
+msgstr "作者のみ"
+
+msgid "AvatarPermissionType:onlySeparatelyLicensedPerson"
+msgstr "作者が個別に許可した人のみ"
+
+msgid "AvatarPermissionType:everyone"
+msgstr "全員"
+
+msgid "CommercialUsageType:personalNonProfit"
+msgstr "個人の非営利のみ"
+
+msgid "CommercialUsageType:personalProfit"
+msgstr "個人のみ"
+
+msgid "CommercialUsageType:corporation"
+msgstr "個人・法人"
+
+msgid "CreditNotationType:required"
+msgstr "必要"
+
+msgid "CreditNotationType:unnecessary"
+msgstr "不要"
+
+msgid "ModificationType:prohibited"
+msgstr "不可"
+
+msgid "ModificationType:allowModification"
+msgstr "可"
+
+msgid "ModificationType:allowModificationRedistribution"
+msgstr "可 (改変後の再配布も可)"
+
+msgid "Error:NoHumanoid"
+msgstr "{0} にヒューマノイドの Animator がありません。"
+
+msgid "Error:UnsupportedUnity"
+msgstr "Unity {0} には対応していません。Unity {1} を使ってください。"
+
+msgid "Error:PackageMissing"
+msgstr "{0} が入っていません。{0} {1} を入れてください。"
+
+msgid "Error:UnsupportedPackage"
+msgstr "{0} {1} には対応していません。{0} {2} を使ってください。"
+
+msgid "Report:NoTPose"
+msgstr "アバターを T ポーズにできなかったので、今のポーズのまま書き出しました。"
+
+msgid "Report:NoColor"
+msgstr "{0}: マテリアルが色を描かないので、書き出していません。"
+
+msgid "Report:StencilHidden"
+msgstr "{0}: ほかのマテリアルがステンシルで印を付けた所にだけ描くので、MToon のマテリアルで表示する VRM アプリでは表示されません。"
+
+msgid "Report:DrawsOverAgain"
+msgstr "{0}: {1} はメッシュの上に重ねて描くもので、VRM には入らないので書き出していません。"
+
+msgid "Report:FakeShadowHidden"
+msgstr "{0}: MToon のマテリアルで表示する VRM アプリでは {1} が表示されません。"
+
+msgid "Report:SpecialShader"
+msgstr "{0}: MToon のマテリアルで表示する VRM アプリでは {1} が普通の MToon のマテリアルとして表示されます。"
+
+msgid "Report:MissingShader"
+msgstr "{0}: シェーダーがこのプロジェクトに入っていません。メインのテクスチャと色だけを書き出しました。"
+
+msgid "Report:NotLilToon"
+msgstr "{0}: {1} は lilToon ではありません。メインのテクスチャと色だけを書き出しました。"
+
+msgid "Report:UnsupportedTexture"
+msgstr "{0}: {1} は {2} なので書き出していません。"
+
+msgid "Report:PhysBoneOverlap"
+msgstr "{0}: {1} はすでにほかの PhysBone が動かしているので、飛ばしました。"
+
+msgid "Report:UnsupportedCollider"
+msgstr "{0}: コライダーの形 {1} には対応していないので、飛ばしました。"
+
+msgid "Report:FxExpressions"
+msgstr "FX レイヤーの表情のアニメーション {0} 個を表情として書き出しました。"
+
+msgid "Report:FxMovesBones"
+msgstr "そのうち {0} 個はボーン (耳・目のハイライトなど) も動かしますが、VRM の表情はボーンを動かせません。シェイプキーだけを書き出しました。"
+
+msgid "Report:NoVisemes"
+msgstr "アバターに口の形 (Viseme) のシェイプキーが無いので、声に合わせて口が動きません。"
+
+msgid "Report:VisemeMeshFound"
+msgstr "Avatar Descriptor に口の形のメッシュが設定されていないので、それを持つ {0} を使いました。"
+
+msgid "Report:VisemeAnimations"
+msgstr "口の形は、Viseme パラメーターで FX レイヤーが {0} に再生するアニメーションから作りました。"
+
+msgid "Report:NoBlink"
+msgstr "まばたきのシェイプキーが見つからなかったので、アバターはまばたきしません。"
+
+msgid "Report:SplitBlink"
+msgstr "{1} のシェイプキー {0} は両目を閉じるので、ウインクできるよう片目ずつに分けました。"
+
+msgid "Report:ShapeKeyFound"
+msgstr "{1} のシェイプキー {0} を{2}に使いました。"
+
+msgid "Purpose:Blink"
+msgstr "まばたき"
+
+msgid "Purpose:BlinkLeft"
+msgstr "左目のまばたき"
+
+msgid "Purpose:BlinkRight"
+msgstr "右目のまばたき"
+
+msgid "Report:PerfectSyncSkipped"
+msgstr "ARKit のシェイプキーが {0} 個見つかりましたが、{1} が無いので Perfect Sync は書き出していません。"
+
+msgid "Report:PerfectSyncPartial"
+msgstr "Perfect Sync は一部だけです。{0} が見つかりませんでした。"
+
+msgid "Report:NotInMToon"
+msgstr "MToon のマテリアルで表示する VRM アプリでは{0}が表示されません: {1}"
+
+msgid "Report:TexCoordNotExported"
+msgstr "{1}が使う UV{0} は書き出していません: {2}"
+
+msgid "Report:VertexColorsNotExported"
+msgstr "輪郭線の太さに使う頂点カラーは書き出していません: {0}"
+
+msgid "Report:AudioLink"
+msgstr "AudioLink は VRChat のワールドの外では入力がありません: {0}"
+
+msgid "Feature:Main2nd"
+msgstr "メインカラー2nd"
+
+msgid "Feature:Main3rd"
+msgstr "メインカラー3rd"
+
+msgid "Feature:Bump2nd"
+msgstr "ノーマルマップ2nd"
+
+msgid "Feature:Glitter"
+msgstr "ラメ"
+
+msgid "Feature:GlitterColor"
+msgstr "ラメの色"
+
+msgid "Feature:Emission"
+msgstr "発光"
+
+msgid "Feature:Emission2nd"
+msgstr "発光2nd"
+
+msgid "Feature:AudioLinkMask"
+msgstr "AudioLink のマスク"
+
+msgid "Feature:OutlineVector"
+msgstr "輪郭線の向き"
+
+msgid "Feature:Shadow2nd"
+msgstr "影の2段目"
+
+msgid "Feature:Shadow3rd"
+msgstr "影の3段目"
+
+msgid "Feature:ShadowMasks"
+msgstr "影のマスク"
+
+msgid "Feature:Anisotropy"
+msgstr "異方性反射"
+
+msgid "Feature:Backlight"
+msgstr "逆光ライト"
+
+msgid "Feature:RimShade"
+msgstr "リムシェード"
+
+msgid "Feature:Reflection"
+msgstr "反射"
+
+msgid "Feature:MatCap2nd"
+msgstr "マットキャップ2nd"
+
+msgid "Feature:Parallax"
+msgstr "視差マップ"
+
+msgid "Feature:MatCapBlendMode"
+msgstr "マットキャップの合成モード"
+
+msgid "Feature:Dissolve"
+msgstr "ディゾルブ"
+
+msgid "Feature:DistanceFade"
+msgstr "距離フェード"
+
+msgid "Feature:MainTextureAnimation"
+msgstr "メインのテクスチャのアニメーション"
+
+msgid "Feature:OutlineTexture"
+msgstr "輪郭線のテクスチャ"
+
+msgid "Feature:OutlineZBias"
+msgstr "輪郭線の Z バイアス"

@@ -1,0 +1,300 @@
+msgid ""
+msgstr ""
+"Language: en-US\n"
+
+msgid "Window:Avatar"
+msgstr "Avatar"
+
+msgid "Window:Information"
+msgstr "Information"
+
+msgid "Window:Name"
+msgstr "Name"
+
+msgid "Window:Authors"
+msgstr "Authors"
+
+msgid "Window:AuthorsTooltip"
+msgstr "Separate multiple authors with commas."
+
+msgid "Window:Version"
+msgstr "Version"
+
+msgid "Window:Copyright"
+msgstr "Copyright"
+
+msgid "Window:Contact"
+msgstr "Contact"
+
+msgid "Window:Thumbnail"
+msgstr "Thumbnail"
+
+msgid "Window:Output"
+msgstr "Output"
+
+msgid "Window:MaxTextureSize"
+msgstr "Max texture size"
+
+msgid "Window:MaxTextureSizeTooltip"
+msgstr "Larger textures are shrunk. Phones decode every texture to full size."
+
+msgid "Window:OriginalSize"
+msgstr "Original"
+
+msgid "Window:Winks"
+msgstr "Winks"
+
+msgid "Window:WinksTooltip"
+msgstr "When the avatar blinks both eyes with one shape key, splits it into one for each eye so the avatar can wink. Adds two shape keys."
+
+msgid "Window:License"
+msgstr "License"
+
+msgid "Window:LicenseHint"
+msgstr "Set these to match the avatar's terms of use."
+
+msgid "Window:AvatarPermission"
+msgstr "Who can use the avatar"
+
+msgid "Window:CommercialUsage"
+msgstr "Commercial use"
+
+msgid "Window:CreditNotation"
+msgstr "Credit"
+
+msgid "Window:Modification"
+msgstr "Modification"
+
+msgid "Window:Redistribution"
+msgstr "Redistribution"
+
+msgid "Window:ViolentUsage"
+msgstr "Violent use"
+
+msgid "Window:SexualUsage"
+msgstr "Sexual use"
+
+msgid "Window:PoliticalOrReligiousUsage"
+msgstr "Political or religious use"
+
+msgid "Window:AntisocialOrHateUsage"
+msgstr "Antisocial or hate use"
+
+msgid "Window:TermsChecked"
+msgstr "I have checked that the avatar's terms of use allow using it outside VRChat and converting it to VRM."
+
+msgid "Window:Export"
+msgstr "Export VRM"
+
+msgid "Window:Exporting"
+msgstr "Exporting..."
+
+msgid "Window:LastExport"
+msgstr "Last export"
+
+msgid "Window:NoNotes"
+msgstr "Exported without notes."
+
+msgid "Window:OK"
+msgstr "OK"
+
+msgid "AvatarPermissionType:onlyAuthor"
+msgstr "Only the author"
+
+msgid "AvatarPermissionType:onlySeparatelyLicensedPerson"
+msgstr "Only people the author licenses separately"
+
+msgid "AvatarPermissionType:everyone"
+msgstr "Everyone"
+
+msgid "CommercialUsageType:personalNonProfit"
+msgstr "Personal, non-profit"
+
+msgid "CommercialUsageType:personalProfit"
+msgstr "Personal, for profit"
+
+msgid "CommercialUsageType:corporation"
+msgstr "Corporate too"
+
+msgid "CreditNotationType:required"
+msgstr "Required"
+
+msgid "CreditNotationType:unnecessary"
+msgstr "Not required"
+
+msgid "ModificationType:prohibited"
+msgstr "Not allowed"
+
+msgid "ModificationType:allowModification"
+msgstr "Allowed"
+
+msgid "ModificationType:allowModificationRedistribution"
+msgstr "Allowed, with redistribution"
+
+msgid "Error:NoHumanoid"
+msgstr "{0} has no humanoid Animator."
+
+msgid "Error:UnsupportedUnity"
+msgstr "Unity {0} is not supported. Use Unity {1}."
+
+msgid "Error:PackageMissing"
+msgstr "{0} is not installed. Install {0} {1}."
+
+msgid "Error:UnsupportedPackage"
+msgstr "{0} {1} is not supported. Use {0} {2}."
+
+msgid "Report:NoTPose"
+msgstr "The avatar could not be put into a T-pose, so it is exported in its current pose."
+
+msgid "Report:NoColor"
+msgstr "{0}: its materials draw no color, so it is not exported."
+
+msgid "Report:StencilHidden"
+msgstr "{0}: it draws only where other materials mark the screen with a stencil, so VRM apps that show the MToon material do not show it."
+
+msgid "Report:DrawsOverAgain"
+msgstr "{0}: {1} draw over the mesh again, which a VRM cannot hold, so they are not exported."
+
+msgid "Report:FakeShadowHidden"
+msgstr "{0}: VRM apps that show the MToon material do not show {1}."
+
+msgid "Report:SpecialShader"
+msgstr "{0}: VRM apps that show the MToon material show {1} as a plain MToon material."
+
+msgid "Report:MissingShader"
+msgstr "{0}: its shader is not installed in this project. Only its main texture and color are exported."
+
+msgid "Report:NotLilToon"
+msgstr "{0}: {1} is not lilToon. Only its main texture and color are exported."
+
+msgid "Report:UnsupportedTexture"
+msgstr "{0}: {1} is a {2} and is not exported."
+
+msgid "Report:PhysBoneOverlap"
+msgstr "{0}: {1} is already moved by another PhysBone and was skipped."
+
+msgid "Report:UnsupportedCollider"
+msgstr "{0}: the collider shape {1} is not supported and was skipped."
+
+msgid "Report:FxExpressions"
+msgstr "{0} facial animations of the FX layer were exported as expressions."
+
+msgid "Report:FxMovesBones"
+msgstr "{0} of them also move bones (ears, eye highlights and the like), which a VRM expression cannot. Only their shape keys are exported."
+
+msgid "Report:NoVisemes"
+msgstr "The avatar has no viseme shape keys, so its mouth does not move with the voice."
+
+msgid "Report:VisemeMeshFound"
+msgstr "The avatar descriptor names no mesh for the visemes, so {0}, which has them, is used."
+
+msgid "Report:VisemeAnimations"
+msgstr "The mouth shapes are the FX layer's animations the Viseme parameter plays on {0}."
+
+msgid "Report:NoBlink"
+msgstr "No blink shape key was found, so the avatar does not blink."
+
+msgid "Report:SplitBlink"
+msgstr "The shape key {0} on {1} closes both eyes, so it is split into one for each eye to let the avatar wink."
+
+msgid "Report:ShapeKeyFound"
+msgstr "The shape key {0} on {1} is used for {2}."
+
+msgid "Purpose:Blink"
+msgstr "blink"
+
+msgid "Purpose:BlinkLeft"
+msgstr "blinking the left eye"
+
+msgid "Purpose:BlinkRight"
+msgstr "blinking the right eye"
+
+msgid "Report:PerfectSyncSkipped"
+msgstr "{0} ARKit shape keys were found, but Perfect Sync is not exported without {1}."
+
+msgid "Report:PerfectSyncPartial"
+msgstr "Perfect Sync is partial: {0} were not found."
+
+msgid "Report:NotInMToon"
+msgstr "VRM apps that show the MToon material do not show {0}: {1}."
+
+msgid "Report:TexCoordNotExported"
+msgstr "UV{0}, which the {1} uses, is not exported: {2}."
+
+msgid "Report:VertexColorsNotExported"
+msgstr "Vertex colors, which the outline width uses, are not exported: {0}."
+
+msgid "Report:AudioLink"
+msgstr "AudioLink has no input outside VRChat worlds: {0}."
+
+msgid "Feature:Main2nd"
+msgstr "2nd main color"
+
+msgid "Feature:Main3rd"
+msgstr "3rd main color"
+
+msgid "Feature:Bump2nd"
+msgstr "2nd normal map"
+
+msgid "Feature:Glitter"
+msgstr "glitter"
+
+msgid "Feature:GlitterColor"
+msgstr "glitter color"
+
+msgid "Feature:Emission"
+msgstr "emission"
+
+msgid "Feature:Emission2nd"
+msgstr "2nd emission"
+
+msgid "Feature:AudioLinkMask"
+msgstr "AudioLink mask"
+
+msgid "Feature:OutlineVector"
+msgstr "outline direction"
+
+msgid "Feature:Shadow2nd"
+msgstr "2nd shadow"
+
+msgid "Feature:Shadow3rd"
+msgstr "3rd shadow"
+
+msgid "Feature:ShadowMasks"
+msgstr "shadow masks"
+
+msgid "Feature:Anisotropy"
+msgstr "anisotropy"
+
+msgid "Feature:Backlight"
+msgstr "backlight"
+
+msgid "Feature:RimShade"
+msgstr "rim shade"
+
+msgid "Feature:Reflection"
+msgstr "reflection"
+
+msgid "Feature:MatCap2nd"
+msgstr "2nd matcap"
+
+msgid "Feature:Parallax"
+msgstr "parallax"
+
+msgid "Feature:MatCapBlendMode"
+msgstr "matcap blend mode"
+
+msgid "Feature:Dissolve"
+msgstr "dissolve"
+
+msgid "Feature:DistanceFade"
+msgstr "distance fade"
+
+msgid "Feature:MainTextureAnimation"
+msgstr "main texture animation"
+
+msgid "Feature:OutlineTexture"
+msgstr "outline texture"
+
+msgid "Feature:OutlineZBias"
+msgstr "outline Z bias"

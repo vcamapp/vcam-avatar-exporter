@@ -1,0 +1,44 @@
+name: Listing
+
+# Rebuilds the VPM listing VCC reads from GitHub Pages, and the page beside it. A release runs it, and so does a push to the default branch that changes what it builds.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/pages/**
+      - .github/scripts/vpm.py
+      - .github/workflows/listing.yml
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Publish the listing
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Build the listing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/vpm.py listing .build/site
+
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: .build/site
+
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

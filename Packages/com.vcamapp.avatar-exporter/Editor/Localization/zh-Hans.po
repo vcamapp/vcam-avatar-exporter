@@ -1,0 +1,300 @@
+msgid ""
+msgstr ""
+"Language: zh-Hans\n"
+
+msgid "Window:Avatar"
+msgstr "Avatar"
+
+msgid "Window:Information"
+msgstr "信息"
+
+msgid "Window:Name"
+msgstr "名称"
+
+msgid "Window:Authors"
+msgstr "作者"
+
+msgid "Window:AuthorsTooltip"
+msgstr "多位作者请用逗号分隔。"
+
+msgid "Window:Version"
+msgstr "版本"
+
+msgid "Window:Copyright"
+msgstr "版权信息"
+
+msgid "Window:Contact"
+msgstr "联系方式"
+
+msgid "Window:Thumbnail"
+msgstr "缩略图"
+
+msgid "Window:Output"
+msgstr "输出"
+
+msgid "Window:MaxTextureSize"
+msgstr "纹理最大尺寸"
+
+msgid "Window:MaxTextureSizeTooltip"
+msgstr "超过此尺寸的纹理会被缩小。手机会以原始尺寸解码每张纹理。"
+
+msgid "Window:OriginalSize"
+msgstr "原始尺寸"
+
+msgid "Window:Winks"
+msgstr "眨单眼"
+
+msgid "Window:WinksTooltip"
+msgstr "如果 Avatar 用一个形态键同时闭上双眼，会将其拆分为左右眼各一个，使 Avatar 能够眨单眼。会新增两个形态键。"
+
+msgid "Window:License"
+msgstr "许可"
+
+msgid "Window:LicenseHint"
+msgstr "请按照 Avatar 的使用条款进行设置。"
+
+msgid "Window:AvatarPermission"
+msgstr "可以使用 Avatar 的人"
+
+msgid "Window:CommercialUsage"
+msgstr "商业用途"
+
+msgid "Window:CreditNotation"
+msgstr "署名"
+
+msgid "Window:Modification"
+msgstr "修改"
+
+msgid "Window:Redistribution"
+msgstr "再分发"
+
+msgid "Window:ViolentUsage"
+msgstr "用于暴力表现"
+
+msgid "Window:SexualUsage"
+msgstr "用于性表现"
+
+msgid "Window:PoliticalOrReligiousUsage"
+msgstr "用于政治或宗教目的"
+
+msgid "Window:AntisocialOrHateUsage"
+msgstr "用于反社会或仇恨表现"
+
+msgid "Window:TermsChecked"
+msgstr "我已确认 Avatar 的使用条款允许在 VRChat 以外使用并转换为 VRM。"
+
+msgid "Window:Export"
+msgstr "导出 VRM"
+
+msgid "Window:Exporting"
+msgstr "正在导出…"
+
+msgid "Window:LastExport"
+msgstr "上次导出"
+
+msgid "Window:NoNotes"
+msgstr "导出完成，没有需要提示的内容。"
+
+msgid "Window:OK"
+msgstr "确定"
+
+msgid "AvatarPermissionType:onlyAuthor"
+msgstr "仅限作者"
+
+msgid "AvatarPermissionType:onlySeparatelyLicensedPerson"
+msgstr "仅限作者另行授权的人"
+
+msgid "AvatarPermissionType:everyone"
+msgstr "所有人"
+
+msgid "CommercialUsageType:personalNonProfit"
+msgstr "仅限个人非营利"
+
+msgid "CommercialUsageType:personalProfit"
+msgstr "仅限个人"
+
+msgid "CommercialUsageType:corporation"
+msgstr "个人和企业"
+
+msgid "CreditNotationType:required"
+msgstr "需要"
+
+msgid "CreditNotationType:unnecessary"
+msgstr "不需要"
+
+msgid "ModificationType:prohibited"
+msgstr "不可"
+
+msgid "ModificationType:allowModification"
+msgstr "可"
+
+msgid "ModificationType:allowModificationRedistribution"
+msgstr "可 (含再分发)"
+
+msgid "Error:NoHumanoid"
+msgstr "{0} 没有 Humanoid 的 Animator。"
+
+msgid "Error:UnsupportedUnity"
+msgstr "不支持 Unity {0}。请使用 Unity {1}。"
+
+msgid "Error:PackageMissing"
+msgstr "未安装 {0}。请安装 {0} {1}。"
+
+msgid "Error:UnsupportedPackage"
+msgstr "不支持 {0} {1}。请使用 {0} {2}。"
+
+msgid "Report:NoTPose"
+msgstr "无法将 Avatar 摆成 T 姿势，已按当前姿势导出。"
+
+msgid "Report:NoColor"
+msgstr "{0}：材质不绘制颜色，因此未导出。"
+
+msgid "Report:StencilHidden"
+msgstr "{0}：仅在其他材质用模板 (Stencil) 标记的位置绘制，因此以 MToon 材质显示的 VRM 应用不会显示它。"
+
+msgid "Report:DrawsOverAgain"
+msgstr "{0}：{1} 会在网格上再绘制一次，VRM 无法保存，因此未导出。"
+
+msgid "Report:FakeShadowHidden"
+msgstr "{0}：以 MToon 材质显示的 VRM 应用不会显示 {1}。"
+
+msgid "Report:SpecialShader"
+msgstr "{0}：在以 MToon 材质显示的 VRM 应用中，{1} 显示为普通的 MToon 材质。"
+
+msgid "Report:MissingShader"
+msgstr "{0}：此项目中未安装其着色器。仅导出了主纹理和颜色。"
+
+msgid "Report:NotLilToon"
+msgstr "{0}：{1} 不是 lilToon。仅导出了主纹理和颜色。"
+
+msgid "Report:UnsupportedTexture"
+msgstr "{0}：{1} 是 {2}，因此未导出。"
+
+msgid "Report:PhysBoneOverlap"
+msgstr "{0}：{1} 已由其他 PhysBone 驱动，已跳过。"
+
+msgid "Report:UnsupportedCollider"
+msgstr "{0}：不支持碰撞体形状 {1}，已跳过。"
+
+msgid "Report:FxExpressions"
+msgstr "已将 FX 层的 {0} 个表情动画导出为表情。"
+
+msgid "Report:FxMovesBones"
+msgstr "其中 {0} 个还会移动骨骼 (耳朵、眼睛高光等)，而 VRM 表情无法移动骨骼。仅导出了形态键。"
+
+msgid "Report:NoVisemes"
+msgstr "Avatar 没有口型 (Viseme) 形态键，因此嘴巴不会随声音动。"
+
+msgid "Report:VisemeMeshFound"
+msgstr "Avatar Descriptor 未指定口型的网格，因此使用了带有口型的 {0}。"
+
+msgid "Report:VisemeAnimations"
+msgstr "口型取自 FX 层根据 Viseme 参数在 {0} 上播放的动画。"
+
+msgid "Report:NoBlink"
+msgstr "未找到眨眼的形态键，因此 Avatar 不会眨眼。"
+
+msgid "Report:SplitBlink"
+msgstr "{1} 的形态键 {0} 会同时闭上双眼，因此已拆分为左右眼各一个，使 Avatar 能够眨单眼。"
+
+msgid "Report:ShapeKeyFound"
+msgstr "已将 {1} 的形态键 {0} 用于{2}。"
+
+msgid "Purpose:Blink"
+msgstr "眨眼"
+
+msgid "Purpose:BlinkLeft"
+msgstr "左眼眨眼"
+
+msgid "Purpose:BlinkRight"
+msgstr "右眼眨眼"
+
+msgid "Report:PerfectSyncSkipped"
+msgstr "找到了 {0} 个 ARKit 形态键，但缺少 {1}，因此未导出 Perfect Sync。"
+
+msgid "Report:PerfectSyncPartial"
+msgstr "Perfect Sync 不完整：未找到 {0}。"
+
+msgid "Report:NotInMToon"
+msgstr "以 MToon 材质显示的 VRM 应用不会显示{0}：{1}"
+
+msgid "Report:TexCoordNotExported"
+msgstr "{1}使用的 UV{0} 未导出：{2}"
+
+msgid "Report:VertexColorsNotExported"
+msgstr "描边宽度使用的顶点颜色未导出：{0}"
+
+msgid "Report:AudioLink"
+msgstr "AudioLink 在 VRChat 世界之外没有输入：{0}"
+
+msgid "Feature:Main2nd"
+msgstr "主色 2nd"
+
+msgid "Feature:Main3rd"
+msgstr "主色 3rd"
+
+msgid "Feature:Bump2nd"
+msgstr "法线贴图 2nd"
+
+msgid "Feature:Glitter"
+msgstr "闪光"
+
+msgid "Feature:GlitterColor"
+msgstr "闪光颜色"
+
+msgid "Feature:Emission"
+msgstr "发光"
+
+msgid "Feature:Emission2nd"
+msgstr "发光 2nd"
+
+msgid "Feature:AudioLinkMask"
+msgstr "AudioLink 遮罩"
+
+msgid "Feature:OutlineVector"
+msgstr "描边方向"
+
+msgid "Feature:Shadow2nd"
+msgstr "第二层阴影"
+
+msgid "Feature:Shadow3rd"
+msgstr "第三层阴影"
+
+msgid "Feature:ShadowMasks"
+msgstr "阴影遮罩"
+
+msgid "Feature:Anisotropy"
+msgstr "各向异性反射"
+
+msgid "Feature:Backlight"
+msgstr "逆光"
+
+msgid "Feature:RimShade"
+msgstr "边缘阴影"
+
+msgid "Feature:Reflection"
+msgstr "反射"
+
+msgid "Feature:MatCap2nd"
+msgstr "MatCap 2nd"
+
+msgid "Feature:Parallax"
+msgstr "视差贴图"
+
+msgid "Feature:MatCapBlendMode"
+msgstr "MatCap 混合模式"
+
+msgid "Feature:Dissolve"
+msgstr "溶解"
+
+msgid "Feature:DistanceFade"
+msgstr "距离渐隐"
+
+msgid "Feature:MainTextureAnimation"
+msgstr "主纹理动画"
+
+msgid "Feature:OutlineTexture"
+msgstr "描边纹理"
+
+msgid "Feature:OutlineZBias"
+msgstr "描边 Z 偏移"

@@ -1,0 +1,31 @@
+{
+    "name": "VCam.AvatarExporter.Editor.Tests",
+    "rootNamespace": "VCam.AvatarExporter",
+    "references": [
+        "VCam.AvatarExporter.Editor",
+        "UniGLTF",
+        "VRM10",
+        "VRC.SDKBase",
+        "VRC.SDK3A",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "nadena.dev.modular-avatar.core",
+        "nadena.dev.ndmf",
+        "SpringBoneJobs"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "VRCSDK3A.dll",
+        "VRCSDKBase.dll",
+        "VRC.Dynamics.dll",
+        "VRC.SDK3.Dynamics.PhysBone.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ]
+}

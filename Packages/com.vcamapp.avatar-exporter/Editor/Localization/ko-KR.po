@@ -1,0 +1,300 @@
+msgid ""
+msgstr ""
+"Language: ko-KR\n"
+
+msgid "Window:Avatar"
+msgstr "아바타"
+
+msgid "Window:Information"
+msgstr "정보"
+
+msgid "Window:Name"
+msgstr "이름"
+
+msgid "Window:Authors"
+msgstr "제작자"
+
+msgid "Window:AuthorsTooltip"
+msgstr "제작자가 여러 명이면 쉼표로 구분합니다."
+
+msgid "Window:Version"
+msgstr "버전"
+
+msgid "Window:Copyright"
+msgstr "저작권 표시"
+
+msgid "Window:Contact"
+msgstr "연락처"
+
+msgid "Window:Thumbnail"
+msgstr "섬네일"
+
+msgid "Window:Output"
+msgstr "출력"
+
+msgid "Window:MaxTextureSize"
+msgstr "텍스처 최대 크기"
+
+msgid "Window:MaxTextureSizeTooltip"
+msgstr "이보다 큰 텍스처는 축소합니다. 스마트폰은 모든 텍스처를 원래 크기로 풀어서 사용합니다."
+
+msgid "Window:OriginalSize"
+msgstr "원본 크기"
+
+msgid "Window:Winks"
+msgstr "윙크"
+
+msgid "Window:WinksTooltip"
+msgstr "한 개의 블렌드 셰이프로 두 눈을 감는 아바타라면, 윙크할 수 있도록 한쪽 눈씩 감는 블렌드 셰이프로 나눕니다. 블렌드 셰이프가 2개 늘어납니다."
+
+msgid "Window:License"
+msgstr "라이선스"
+
+msgid "Window:LicenseHint"
+msgstr "아바타의 이용 약관에 맞게 설정하세요."
+
+msgid "Window:AvatarPermission"
+msgstr "아바타를 사용할 수 있는 사람"
+
+msgid "Window:CommercialUsage"
+msgstr "상업적 이용"
+
+msgid "Window:CreditNotation"
+msgstr "크레딧 표기"
+
+msgid "Window:Modification"
+msgstr "개변"
+
+msgid "Window:Redistribution"
+msgstr "재배포"
+
+msgid "Window:ViolentUsage"
+msgstr "폭력적 표현에 이용"
+
+msgid "Window:SexualUsage"
+msgstr "성적 표현에 이용"
+
+msgid "Window:PoliticalOrReligiousUsage"
+msgstr "정치·종교 목적으로 이용"
+
+msgid "Window:AntisocialOrHateUsage"
+msgstr "반사회적·혐오 표현에 이용"
+
+msgid "Window:TermsChecked"
+msgstr "아바타의 이용 약관에서 VRChat 밖에서의 사용과 VRM 변환이 허용되는 것을 확인했습니다."
+
+msgid "Window:Export"
+msgstr "VRM 내보내기"
+
+msgid "Window:Exporting"
+msgstr "내보내는 중…"
+
+msgid "Window:LastExport"
+msgstr "마지막 내보내기"
+
+msgid "Window:NoNotes"
+msgstr "내보냈습니다. 알려 드릴 사항은 없습니다."
+
+msgid "Window:OK"
+msgstr "확인"
+
+msgid "AvatarPermissionType:onlyAuthor"
+msgstr "제작자만"
+
+msgid "AvatarPermissionType:onlySeparatelyLicensedPerson"
+msgstr "제작자가 따로 허락한 사람만"
+
+msgid "AvatarPermissionType:everyone"
+msgstr "모든 사람"
+
+msgid "CommercialUsageType:personalNonProfit"
+msgstr "개인 비영리만"
+
+msgid "CommercialUsageType:personalProfit"
+msgstr "개인만"
+
+msgid "CommercialUsageType:corporation"
+msgstr "개인·법인"
+
+msgid "CreditNotationType:required"
+msgstr "필요"
+
+msgid "CreditNotationType:unnecessary"
+msgstr "불필요"
+
+msgid "ModificationType:prohibited"
+msgstr "불가"
+
+msgid "ModificationType:allowModification"
+msgstr "가능"
+
+msgid "ModificationType:allowModificationRedistribution"
+msgstr "가능 (개변 후 재배포도 가능)"
+
+msgid "Error:NoHumanoid"
+msgstr "{0}에 휴머노이드 Animator가 없습니다."
+
+msgid "Error:UnsupportedUnity"
+msgstr "Unity {0}은(는) 지원하지 않습니다. Unity {1}을(를) 사용하세요."
+
+msgid "Error:PackageMissing"
+msgstr "{0}이(가) 설치되어 있지 않습니다. {0} {1}을(를) 설치하세요."
+
+msgid "Error:UnsupportedPackage"
+msgstr "{0} {1}은(는) 지원하지 않습니다. {0} {2}을(를) 사용하세요."
+
+msgid "Report:NoTPose"
+msgstr "아바타를 T 포즈로 만들 수 없어서 현재 포즈 그대로 내보냈습니다."
+
+msgid "Report:NoColor"
+msgstr "{0}: 머티리얼이 색을 그리지 않아서 내보내지 않았습니다."
+
+msgid "Report:StencilHidden"
+msgstr "{0}: 다른 머티리얼이 스텐실로 표시한 곳에만 그려지므로 MToon 머티리얼로 표시하는 VRM 앱에서는 표시되지 않습니다."
+
+msgid "Report:DrawsOverAgain"
+msgstr "{0}: {1}은(는) 메시 위에 한 번 더 그리는 것으로, VRM에 담을 수 없어서 내보내지 않았습니다."
+
+msgid "Report:FakeShadowHidden"
+msgstr "{0}: MToon 머티리얼로 표시하는 VRM 앱에서는 {1}이(가) 표시되지 않습니다."
+
+msgid "Report:SpecialShader"
+msgstr "{0}: MToon 머티리얼로 표시하는 VRM 앱에서는 {1}이(가) 일반 MToon 머티리얼로 표시됩니다."
+
+msgid "Report:MissingShader"
+msgstr "{0}: 셰이더가 이 프로젝트에 설치되어 있지 않습니다. 메인 텍스처와 색상만 내보냈습니다."
+
+msgid "Report:NotLilToon"
+msgstr "{0}: {1}은(는) lilToon이 아닙니다. 메인 텍스처와 색상만 내보냈습니다."
+
+msgid "Report:UnsupportedTexture"
+msgstr "{0}: {1}은(는) {2}이므로 내보내지 않았습니다."
+
+msgid "Report:PhysBoneOverlap"
+msgstr "{0}: {1}은(는) 이미 다른 PhysBone이 움직이고 있어서 건너뛰었습니다."
+
+msgid "Report:UnsupportedCollider"
+msgstr "{0}: 콜라이더 형태 {1}은(는) 지원하지 않아서 건너뛰었습니다."
+
+msgid "Report:FxExpressions"
+msgstr "FX 레이어의 표정 애니메이션 {0}개를 표정으로 내보냈습니다."
+
+msgid "Report:FxMovesBones"
+msgstr "그중 {0}개는 본(귀, 눈의 하이라이트 등)도 움직이지만 VRM 표정은 본을 움직일 수 없습니다. 블렌드 셰이프만 내보냈습니다."
+
+msgid "Report:NoVisemes"
+msgstr "아바타에 입 모양(Viseme) 블렌드 셰이프가 없어서 목소리에 맞춰 입이 움직이지 않습니다."
+
+msgid "Report:VisemeMeshFound"
+msgstr "Avatar Descriptor에 입 모양 메시가 지정되어 있지 않아서, 이를 가진 {0}을(를) 사용했습니다."
+
+msgid "Report:VisemeAnimations"
+msgstr "입 모양은 Viseme 파라미터로 FX 레이어가 {0}에 재생하는 애니메이션에서 만들었습니다."
+
+msgid "Report:NoBlink"
+msgstr "눈 깜빡임 블렌드 셰이프를 찾지 못해서 아바타가 눈을 깜빡이지 않습니다."
+
+msgid "Report:SplitBlink"
+msgstr "{1}의 블렌드 셰이프 {0}은(는) 두 눈을 감으므로, 윙크할 수 있도록 한쪽 눈씩 나눴습니다."
+
+msgid "Report:ShapeKeyFound"
+msgstr "{1}의 블렌드 셰이프 {0}을(를) {2}에 사용했습니다."
+
+msgid "Purpose:Blink"
+msgstr "눈 깜빡임"
+
+msgid "Purpose:BlinkLeft"
+msgstr "왼쪽 눈 깜빡임"
+
+msgid "Purpose:BlinkRight"
+msgstr "오른쪽 눈 깜빡임"
+
+msgid "Report:PerfectSyncSkipped"
+msgstr "ARKit 블렌드 셰이프를 {0}개 찾았지만, {1}이(가) 없어서 Perfect Sync는 내보내지 않았습니다."
+
+msgid "Report:PerfectSyncPartial"
+msgstr "Perfect Sync는 일부만 있습니다. {0}을(를) 찾지 못했습니다."
+
+msgid "Report:NotInMToon"
+msgstr "MToon 머티리얼로 표시하는 VRM 앱에서는 {0}이(가) 표시되지 않습니다: {1}"
+
+msgid "Report:TexCoordNotExported"
+msgstr "{1}이(가) 사용하는 UV{0}은(는) 내보내지 않았습니다: {2}"
+
+msgid "Report:VertexColorsNotExported"
+msgstr "아웃라인 두께에 사용하는 버텍스 컬러는 내보내지 않았습니다: {0}"
+
+msgid "Report:AudioLink"
+msgstr "AudioLink는 VRChat 월드 밖에서는 입력이 없습니다: {0}"
+
+msgid "Feature:Main2nd"
+msgstr "메인 컬러 2nd"
+
+msgid "Feature:Main3rd"
+msgstr "메인 컬러 3rd"
+
+msgid "Feature:Bump2nd"
+msgstr "노멀 맵 2nd"
+
+msgid "Feature:Glitter"
+msgstr "글리터"
+
+msgid "Feature:GlitterColor"
+msgstr "글리터 색상"
+
+msgid "Feature:Emission"
+msgstr "발광"
+
+msgid "Feature:Emission2nd"
+msgstr "발광 2nd"
+
+msgid "Feature:AudioLinkMask"
+msgstr "AudioLink 마스크"
+
+msgid "Feature:OutlineVector"
+msgstr "아웃라인 방향"
+
+msgid "Feature:Shadow2nd"
+msgstr "그림자 2단계"
+
+msgid "Feature:Shadow3rd"
+msgstr "그림자 3단계"
+
+msgid "Feature:ShadowMasks"
+msgstr "그림자 마스크"
+
+msgid "Feature:Anisotropy"
+msgstr "이방성 반사"
+
+msgid "Feature:Backlight"
+msgstr "역광 라이트"
+
+msgid "Feature:RimShade"
+msgstr "림 셰이드"
+
+msgid "Feature:Reflection"
+msgstr "반사"
+
+msgid "Feature:MatCap2nd"
+msgstr "매트캡 2nd"
+
+msgid "Feature:Parallax"
+msgstr "시차 맵"
+
+msgid "Feature:MatCapBlendMode"
+msgstr "매트캡 합성 모드"
+
+msgid "Feature:Dissolve"
+msgstr "디졸브"
+
+msgid "Feature:DistanceFade"
+msgstr "거리 페이드"
+
+msgid "Feature:MainTextureAnimation"
+msgstr "메인 텍스처 애니메이션"
+
+msgid "Feature:OutlineTexture"
+msgstr "아웃라인 텍스처"
+
+msgid "Feature:OutlineZBias"
+msgstr "아웃라인 Z 바이어스"

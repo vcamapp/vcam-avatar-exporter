@@ -1,0 +1,20 @@
+{
+    "name": "VCam.AvatarExporter.Editor",
+    "rootNamespace": "VCam.AvatarExporter",
+    "references": [
+        "UniGLTF",
+        "UniGLTF.Editor",
+        "UniHumanoid",
+        "VRM10",
+        "VRM10.MToon10",
+        "VrmLib",
+        "VRC.SDKBase",
+        "VRC.SDK3A",
+        "nadena.dev.ndmf",
+        "SpringBoneJobs"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "autoReferenced": false
+}

@@ -1,0 +1,30 @@
+# Unity
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+*.csproj
+*.sln
+*.unityproj
+*.pidb
+*.booproj
+*.userprefs
+*.pdb
+*.mdb
+
+# IDE
+.vs/
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
+
+# Build and test outputs
+.build/
+
+# VPM packages are restored with `vrc-get resolve`
+/Packages/*/
+!/Packages/com.vcamapp.avatar-exporter/
