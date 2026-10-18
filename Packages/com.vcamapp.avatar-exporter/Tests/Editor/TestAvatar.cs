@@ -167,6 +167,34 @@ namespace VCam.AvatarExporter
             bangs.transform.localScale = new Vector3(1, 0.5f, 1);
         }
 
+        /// <summary>
+        /// A scarf modeled in centimeters, skinned to the head under a renderer scaled to a hundredth as FBX files in
+        /// centimeters are, whose lilToon outline is 2.
+        /// </summary>
+        internal static void AddCentimeterScarf(GameObject avatar)
+        {
+            var head = avatar.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Head);
+            var scarf = new GameObject("Scarf").AddComponent<SkinnedMeshRenderer>();
+            scarf.transform.SetParent(avatar.transform, false);
+            scarf.transform.localScale = Vector3.one * 0.01f;
+
+            var mesh = new Mesh { name = "Scarf" };
+            mesh.vertices = new[] { new Vector3(-10, 120, 10), new Vector3(10, 120, 10), new Vector3(0, 130, 10) };
+            mesh.normals = new[] { Vector3.forward, Vector3.forward, Vector3.forward };
+            mesh.uv = new[] { Vector2.zero, Vector2.right, Vector2.up };
+            mesh.triangles = new[] { 0, 2, 1 };
+            mesh.boneWeights = Enumerable.Repeat(new BoneWeight { boneIndex0 = 0, weight0 = 1 }, 3).ToArray();
+            mesh.bindposes = new[] { head.worldToLocalMatrix * scarf.transform.localToWorldMatrix };
+            AssetDatabase.CreateAsset(mesh, AssetFolder + "/Scarf.asset");
+
+            scarf.sharedMesh = mesh;
+            scarf.bones = new[] { head };
+            scarf.rootBone = head;
+            var material = CreateMaterial("Scarf", DefaultLilToonShader);
+            material.SetFloat("_OutlineWidth", 2);
+            scarf.sharedMaterial = material;
+        }
+
         /// <summary>A quad under the avatar with a lilToon material of its own, saved as an asset.</summary>
         internal static MeshRenderer AddQuad(GameObject avatar, string name, string lilToonShader)
         {

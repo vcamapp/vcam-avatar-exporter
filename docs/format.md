@@ -32,6 +32,8 @@ The property names and meanings of lilToon materials change between lilToon vers
 
 Only properties defined by the lilToon shader are written. Readers ignore properties they do not know.
 
+lilToon grows outlines and fur along the mesh's normals, so their lengths scale with the mesh, which the export does not keep. `_OutlineWidth` and the `w` of `_FurVector` are written in the avatar's scale: multiplied by how many times longer the mesh's lengths are in the world as Unity draws it, such as 0.01 for a mesh modeled in centimeters.
+
 ### Textures
 
 Each entry of `textures` points at a glTF texture.

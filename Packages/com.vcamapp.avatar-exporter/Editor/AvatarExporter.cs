@@ -107,9 +107,11 @@ namespace VCam.AvatarExporter
                 {
                     return fallback;
                 }
+                var isLilToon = LilToonShader.TryGet(source, out var shader);
+                var values = isLilToon ? InAvatarSpace(source, shader, renderer, root, created) : source;
                 var hidden = stencilOverlays.Contains(source);
                 // Apps that show the MToon fallback show nothing of a hidden one, so how its look falls short there is not reported.
-                fallback = MToonFallback.Create(source, hidden ? new ExportReport() : report, created);
+                fallback = MToonFallback.Create(values, hidden ? new ExportReport() : report, created);
                 float? hiddenAlpha = null;
                 if (hidden)
                 {
@@ -122,9 +124,8 @@ namespace VCam.AvatarExporter
                     fallback.SetTexture(name, textures.Limit(fallback.GetTexture(name)));
                 }
                 fallbacks[source] = fallback;
-                if (LilToonShader.TryGet(source, out var shader))
+                if (isLilToon)
                 {
-                    var values = shader.IsFakeShadow ? FakeShadowInAvatarAxes(source, renderer, root, created) : source;
                     lilToonSources[fallback] = new LilToonSource(values, shader, hiddenAlpha);
                     features.Check(source, shader);
                 }
@@ -159,19 +160,60 @@ namespace VCam.AvatarExporter
         }
 
         /// <summary>
-        /// lilToon shifts a fake shadow along <c>_FakeShadowVector</c> in the axes of the mesh, which the export does
-        /// not keep, so the values are written from a copy that holds the vector in the avatar's axes.
+        /// Some lilToon values work in the space of the mesh, which the export does not keep, so the values are taken
+        /// from a copy that holds them in the avatar's space. A fake shadow shifts along <c>_FakeShadowVector</c> in the
+        /// mesh's axes. Outlines and fur grow along the mesh's normals, which skinning leaves at the length of the mesh's
+        /// scale, so the outline of a mesh modeled in centimeters is a hundredth of <c>_OutlineWidth</c>.
         /// </summary>
-        private static Material FakeShadowInAvatarAxes(Material source, Renderer renderer, GameObject root, List<Object> created)
+        private static Material InAvatarSpace(Material source, LilToonShader shader, Renderer renderer, GameObject root, List<Object> created)
         {
-            var vector = source.GetVector("_FakeShadowVector");
-            // lilToon reads unity_ObjectToWorld, which a skinned mesh's root bone sets.
-            var axes = renderer is SkinnedMeshRenderer { rootBone: { } rootBone } ? rootBone : renderer.transform;
-            var direction = root.transform.InverseTransformDirection(axes.TransformDirection(vector));
+            var scale = MeshScale(renderer);
+            if (!shader.IsFakeShadow && Mathf.Approximately(scale, 1))
+            {
+                return source;
+            }
             var copy = new Material(source) { name = source.name };
-            copy.SetVector("_FakeShadowVector", new Vector4(direction.x, direction.y, direction.z, vector.w));
             created.Add(copy);
+            if (shader.IsFakeShadow)
+            {
+                var vector = source.GetVector("_FakeShadowVector");
+                // lilToon reads unity_ObjectToWorld, which a skinned mesh's root bone sets.
+                var axes = renderer is SkinnedMeshRenderer { rootBone: { } rootBone } ? rootBone : renderer.transform;
+                var direction = root.transform.InverseTransformDirection(axes.TransformDirection(vector));
+                copy.SetVector("_FakeShadowVector", new Vector4(direction.x, direction.y, direction.z, vector.w));
+            }
+            if (copy.HasProperty("_OutlineWidth"))
+            {
+                copy.SetFloat("_OutlineWidth", copy.GetFloat("_OutlineWidth") * scale);
+            }
+            if (copy.HasProperty("_FurVector"))
+            {
+                var fur = copy.GetVector("_FurVector");
+                copy.SetVector("_FurVector", new Vector4(fur.x, fur.y, fur.z, fur.w * scale));
+            }
             return copy;
+        }
+
+        /// <summary>How many times longer the mesh's lengths are in the world as Unity draws it.</summary>
+        private static float MeshScale(Renderer renderer)
+        {
+            var meshToWorld = renderer.transform.localToWorldMatrix;
+            // Skinning places the mesh by its bind poses, whatever the renderer's transform is.
+            if (renderer is SkinnedMeshRenderer { sharedMesh: { } mesh } skinned)
+            {
+                var bones = skinned.bones;
+                var bindposes = mesh.bindposes;
+                for (var i = 0; i < Mathf.Min(bones.Length, bindposes.Length); i++)
+                {
+                    if (bones[i] != null)
+                    {
+                        meshToWorld = bones[i].localToWorldMatrix * bindposes[i];
+                        break;
+                    }
+                }
+            }
+            var scale = meshToWorld.lossyScale;
+            return (Mathf.Abs(scale.x) + Mathf.Abs(scale.y) + Mathf.Abs(scale.z)) / 3;
         }
 
         /// <summary>

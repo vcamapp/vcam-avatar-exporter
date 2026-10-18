@@ -873,6 +873,23 @@ namespace VCam.AvatarExporter
             Assert.That(mainTexture, Is.InRange(0, data.GLTF.textures.Count - 1));
         }
 
+        /// <summary>
+        /// lilToon grows an outline along normals that skinning leaves at the length of the mesh's scale, so a mesh
+        /// modeled in centimeters draws its outline a hundredth as wide as <c>_OutlineWidth</c> says.
+        /// </summary>
+        [Test]
+        public void ExportsTheOutlineWidthInTheAvatarsScale()
+        {
+            TestAvatar.AddCentimeterScarf(_avatar);
+
+            var (data, _, _) = Export();
+
+            var json = data.Json.ParseAsJson();
+            var material = json["materials"][data.GLTF.materials.FindIndex(material => material.name == "Scarf")]["extensions"];
+            Assert.That(material["VRMC_materials_mtoon"]["outlineWidthFactor"].GetDouble(), Is.EqualTo(0.0002).Within(1e-7));
+            Assert.That(material[LilToonExtension.Name]["floats"]["_OutlineWidth"].GetDouble(), Is.EqualTo(0.02).Within(1e-6));
+        }
+
         [Test]
         public void LeavesTheSourceAvatarUnchanged()
         {
