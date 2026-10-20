@@ -336,23 +336,29 @@ namespace VCam.AvatarExporter
         }
 
         /// <summary>
-        /// Facial clips often move bones too, such as ears, which an expression drops. Clips that run for seconds
-        /// animate over time, as idle loops do, and are not expressions.
+        /// Facial clips often move bones too, such as ears, or carry the finger pose of the hand gesture that shows them,
+        /// which an expression drops. Clips that run for seconds animate over time, as idle loops do, and are not
+        /// expressions.
         /// </summary>
         [Test]
         public void ExportsFacialAnimationsThatMoveBonesButNotLongOnes()
         {
-            TestAvatar.AddFxClips(("Smile", new[] { ("blendShape.JawOpen", 100f) }), ("Idle", new[] { ("blendShape.Blink", 100f) }));
+            TestAvatar.AddFxClips(
+                ("Smile", new[] { ("blendShape.JawOpen", 100f) }),
+                ("Wink", new[] { ("blendShape.Blink", 100f) }),
+                ("Idle", new[] { ("blendShape.Blink", 100f) }));
             var clips = Descriptor.baseAnimationLayers[0].animatorController.animationClips;
             clips.Single(clip => clip.name == "Smile")
                 .SetCurve("Hips/Spine/Chest/Neck/Head/Ponytail", typeof(Transform), "localEulerAnglesRaw.x", AnimationCurve.Constant(0, 0, 10));
+            clips.Single(clip => clip.name == "Wink")
+                .SetCurve("", typeof(Animator), "LeftHand.Index.1 Stretched", AnimationCurve.Constant(0, 0, 0.4f));
             clips.Single(clip => clip.name == "Idle")
                 .SetCurve("Body", typeof(SkinnedMeshRenderer), "blendShape.Blink", AnimationCurve.Linear(0, 0, 3, 100));
 
             var (_, vrm, report) = Export();
 
-            Assert.That(vrm.VrmExtension.Expressions.Custom.Keys, Contains.Item("Smile").And.No.Contains("Idle"));
-            Assert.That(report.Notes, Has.Some.EqualTo(new Message("Report:FxMovesBones", 1)));
+            Assert.That(vrm.VrmExtension.Expressions.Custom.Keys, Contains.Item("Smile").And.Contains("Wink").And.No.Contains("Idle"));
+            Assert.That(report.Notes, Has.Some.EqualTo(new Message("Report:FxMovesBones", 2)));
         }
 
         [Test]

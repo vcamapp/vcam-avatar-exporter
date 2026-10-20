@@ -55,7 +55,7 @@ namespace VCam.AvatarExporter
                 }
                 expression.AddClip(ExpressionPreset.custom, ExpressionConverter.Create(clip.name, bindings));
                 added++;
-                if (AnimationUtility.GetCurveBindings(clip).Any(binding => binding.type == typeof(Transform)))
+                if (AnimationUtility.GetCurveBindings(clip).Any(MovesBones))
                 {
                     movingBones++;
                 }
@@ -148,6 +148,13 @@ namespace VCam.AvatarExporter
                 .FirstOrDefault(renderer => renderer != null && renderer.sharedMesh != null);
 
         /// <summary>
+        /// Whether the binding moves a bone: a transform, or a humanoid muscle as the finger poses hand gesture clips
+        /// carry along with the face.
+        /// </summary>
+        private static bool MovesBones(EditorCurveBinding binding) =>
+            binding.type == typeof(Transform) || binding.type == typeof(Animator);
+
+        /// <summary>
         /// The face shape keys the clip ends on, or null when the clip also changes anything other than shape keys and
         /// bones (outfit toggles, material swaps and the like), which makes it something other than an expression.
         /// Facial clips often ease in from zero, so the end is the expression the clip holds.
@@ -156,7 +163,7 @@ namespace VCam.AvatarExporter
         {
             var bindings = AnimationUtility.GetCurveBindings(clip);
             var changesOtherThings = AnimationUtility.GetObjectReferenceCurveBindings(clip).Length > 0
-                || bindings.Any(binding => binding.type != typeof(Transform)
+                || bindings.Any(binding => !MovesBones(binding)
                                            && (binding.type != typeof(SkinnedMeshRenderer) || !binding.propertyName.StartsWith("blendShape.")));
             if (changesOtherThings)
             {
