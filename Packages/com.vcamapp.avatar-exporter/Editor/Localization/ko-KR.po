@@ -194,6 +194,9 @@ msgstr "입 모양은 Viseme 파라미터로 FX 레이어가 {0}에 재생하는
 msgid "Report:NoBlink"
 msgstr "눈 깜빡임 블렌드 셰이프를 찾지 못해서 아바타가 눈을 깜빡이지 않습니다."
 
+msgid "Report:PlaceholderWinks"
+msgstr "블렌드 셰이프 {0}와(과) {1}은(는) 거의 움직이지 않으므로 윙크에 사용하지 않습니다."
+
 msgid "Report:SplitBlink"
 msgstr "{1}의 블렌드 셰이프 {0}은(는) 두 눈을 감으므로, 윙크할 수 있도록 한쪽 눈씩 나눴습니다."
 

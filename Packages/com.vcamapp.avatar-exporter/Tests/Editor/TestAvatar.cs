@@ -24,7 +24,8 @@ namespace VCam.AvatarExporter
             "vrc.v_aa", "vrc.v_e", "vrc.v_ih", "vrc.v_oh", "vrc.v_ou", "Blink", "eyeBlinkLeft", "EyeBlink_R", "JawOpen", "mouthClose", "BodyShape",
         };
 
-        internal static GameObject Create(string lilToonShader = DefaultLilToonShader, string[] shapeKeys = null)
+        /// <param name="placeholders">Shape keys that barely move, as names kept only for VRChat.</param>
+        internal static GameObject Create(string lilToonShader = DefaultLilToonShader, string[] shapeKeys = null, string[] placeholders = null)
         {
             // A run stopped before Destroy leaves the folder behind, and CreateFolder would then make a numbered one beside it.
             AssetDatabase.DeleteAsset(AssetFolder);
@@ -34,7 +35,7 @@ namespace VCam.AvatarExporter
             var animator = root.AddComponent<Animator>();
             animator.avatar = AvatarBuilder.BuildHumanAvatar(root, HumanDescription(root.transform, bones));
 
-            var body = CreateBody(root.transform, bones["Head"], lilToonShader, shapeKeys ?? ShapeKeys);
+            var body = CreateBody(root.transform, bones["Head"], lilToonShader, shapeKeys ?? ShapeKeys, placeholders ?? new string[0]);
             CreateDescriptor(root, body);
             CreatePhysBone(bones["Ponytail"], bones["Head"]);
             return root;
@@ -268,7 +269,7 @@ namespace VCam.AvatarExporter
             return new HumanDescription { human = human, skeleton = skeleton };
         }
 
-        private static SkinnedMeshRenderer CreateBody(Transform root, Transform head, string lilToonShader, string[] shapeKeys)
+        private static SkinnedMeshRenderer CreateBody(Transform root, Transform head, string lilToonShader, string[] shapeKeys, string[] placeholders)
         {
             var mesh = new Mesh { name = "Body" };
             mesh.vertices = new[] { new Vector3(-0.1f, 1.3f, 0.1f), new Vector3(0.1f, 1.3f, 0.1f), new Vector3(0, 1.5f, 0.1f) };
@@ -279,7 +280,7 @@ namespace VCam.AvatarExporter
             mesh.bindposes = new[] { head.worldToLocalMatrix * root.localToWorldMatrix };
             foreach (var name in shapeKeys)
             {
-                var deltas = new[] { Vector3.up * 0.01f, Vector3.zero, Vector3.zero };
+                var deltas = new[] { Vector3.up * (placeholders.Contains(name) ? 0.0001f : 0.01f), Vector3.zero, Vector3.zero };
                 mesh.AddBlendShapeFrame(name, 100, deltas, null, null);
             }
 

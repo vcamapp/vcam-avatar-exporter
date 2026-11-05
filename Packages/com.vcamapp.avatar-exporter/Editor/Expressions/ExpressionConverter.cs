@@ -62,12 +62,15 @@ namespace VCam.AvatarExporter
         /// <summary>The ARKit shape keys an app needs for Perfect Sync to move the eyes and mouth at all.</summary>
         private static readonly string[] PerfectSyncCore = { "eyeBlinkLeft", "eyeBlinkRight", "jawOpen", "mouthClose" };
 
+        /// <summary>A wink moving less than this part of the blink is taken as a placeholder.</summary>
+        private const float PlaceholderWinkRatio = 0.1f;
+
         // Common shape key names for blinking, used when the avatar descriptor does not name one.
-        private static readonly string[] BlinkNames = { "blink", "vrc.blink", "まばたき", "瞬き", "eye_close", "eyes_close", "目閉じ", "eye_toji" };
+        private static readonly string[] BlinkNames = { "blink", "vrc.blink", "まばたき", "瞬き", "eye_close", "eyes_close", "目閉じ", "eye_toji", "eye_mabataki", "mabataki", "e_blink", "Fcl_EYE_Close" };
         // The ARKit and Unified Expressions keys close one eye too, as Perfect Sync avatars have them. These read
         // UnifiedExpressionsNames, so they are declared after it: static fields initialize in order.
-        private static readonly string[] BlinkLeftNames = new[] { "vrc.blink_left", "blink_L", "eye_close_L", "eyes_close_L", "eye_toji_L" }.Concat(PerfectSyncNames("eyeBlinkLeft")).ToArray();
-        private static readonly string[] BlinkRightNames = new[] { "vrc.blink_right", "blink_R", "eye_close_R", "eyes_close_R", "eye_toji_R" }.Concat(PerfectSyncNames("eyeBlinkRight")).ToArray();
+        private static readonly string[] BlinkLeftNames = new[] { "vrc.blink_left", "blink_L", "eye_close_L", "eyes_close_L", "eye_toji_L", "Fcl_EYE_Close_L" }.Concat(PerfectSyncNames("eyeBlinkLeft")).ToArray();
+        private static readonly string[] BlinkRightNames = new[] { "vrc.blink_right", "blink_R", "eye_close_R", "eyes_close_R", "eye_toji_R", "Fcl_EYE_Close_R" }.Concat(PerfectSyncNames("eyeBlinkRight")).ToArray();
 
         /// <summary>The shape key names an ARKit shape goes by: its own and its Unified Expressions names.</summary>
         private static IEnumerable<string> PerfectSyncNames(string arKitName) =>
@@ -180,6 +183,11 @@ namespace VCam.AvatarExporter
 
             var left = FindFirst(renderers, BlinkLeftNames, report, "Purpose:BlinkLeft");
             var right = FindFirst(renderers, BlinkRightNames, report, "Purpose:BlinkRight");
+            if (left is { } l && right is { } r && (IsPlaceholder(l, both) || IsPlaceholder(r, both)))
+            {
+                report.Add("Report:PlaceholderWinks", l.Renderer.sharedMesh.GetBlendShapeName(l.Index), r.Renderer.sharedMesh.GetBlendShapeName(r.Index));
+                left = right = null;
+            }
             if (left == null || right == null)
             {
                 if (!splitsBlink || !root.TryGetComponent<Animator>(out var animator))
@@ -195,6 +203,20 @@ namespace VCam.AvatarExporter
             expression.BlinkLeft = Create("blinkLeft", Binding(root.transform, left.Value.Renderer, left.Value.Index));
             expression.BlinkRight = Create("blinkRight", Binding(root.transform, right.Value.Renderer, right.Value.Index));
             return both.Renderer;
+        }
+
+        /// <summary>
+        /// Some avatars keep the VRChat wink keys only as names, with almost no movement, and close the eyes with
+        /// another key. Winking with those would leave the eyes open.
+        /// </summary>
+        private static bool IsPlaceholder((SkinnedMeshRenderer Renderer, int Index) wink, (SkinnedMeshRenderer Renderer, int Index) blink) =>
+            LargestMove(wink.Renderer.sharedMesh, wink.Index) < LargestMove(blink.Renderer.sharedMesh, blink.Index) * PlaceholderWinkRatio;
+
+        private static float LargestMove(Mesh mesh, int index)
+        {
+            var deltas = new Vector3[mesh.vertexCount];
+            mesh.GetBlendShapeFrameVertices(index, mesh.GetBlendShapeFrameCount(index) - 1, deltas, new Vector3[mesh.vertexCount], new Vector3[mesh.vertexCount]);
+            return deltas.Max(delta => delta.magnitude);
         }
 
         private static (SkinnedMeshRenderer Renderer, int Index)? DescriptorBlink(VRCAvatarDescriptor descriptor)

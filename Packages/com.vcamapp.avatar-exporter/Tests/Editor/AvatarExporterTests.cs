@@ -35,10 +35,10 @@ namespace VCam.AvatarExporter
         private VRCPhysBone PhysBone => _avatar.GetComponentInChildren<VRCPhysBone>();
         private VRCAvatarDescriptor Descriptor => _avatar.GetComponent<VRCAvatarDescriptor>();
 
-        private void Recreate(string lilToonShader = TestAvatar.DefaultLilToonShader, string[] shapeKeys = null)
+        private void Recreate(string lilToonShader = TestAvatar.DefaultLilToonShader, string[] shapeKeys = null, string[] placeholders = null)
         {
             TestAvatar.Destroy(_avatar);
-            _avatar = TestAvatar.Create(lilToonShader, shapeKeys);
+            _avatar = TestAvatar.Create(lilToonShader, shapeKeys, placeholders);
         }
 
         /// <summary>Whether the note names the object, alone or in a list of names.</summary>
@@ -47,7 +47,10 @@ namespace VCam.AvatarExporter
 
         private (GltfData Data, Vrm10Data Vrm, ExportReport Report) Export(int maxTextureSize = 2048, bool splitsBlink = true)
         {
-            var options = new ExportOptions { Meta = { Name = "Test", Authors = { "Tester" } }, MaxTextureSize = maxTextureSize, SplitsBlink = splitsBlink };
+            var options = new ExportOptions
+            {
+                Meta = { Name = "Test", Authors = { "Tester" } }, MaxTextureSize = maxTextureSize, SplitsBlink = splitsBlink,
+            };
             var report = AvatarExporter.Export(_avatar, options, _path);
             var data = new GlbBinaryParser(File.ReadAllBytes(_path), _path).Parse();
             return (data, Vrm10Data.Parse(data), report);
@@ -101,6 +104,45 @@ namespace VCam.AvatarExporter
             Assert.That(TargetName(data, expressions.BlinkLeft.MorphTargetBinds.Single()), Is.EqualTo("Blink_L"));
             Assert.That(TargetName(data, expressions.BlinkRight.MorphTargetBinds.Single()), Is.EqualTo("Blink_R"));
             Assert.That(report.Notes, Has.Some.EqualTo(new Message("Report:SplitBlink", "Blink", "Body")));
+        }
+
+        /// <summary>Avatars made in VRoid Studio keep its face shape key names.</summary>
+        [Test]
+        public void FindsTheBlinksOfVRoidStudio()
+        {
+            Recreate(shapeKeys: new[] { "Fcl_EYE_Close", "Fcl_EYE_Close_L", "Fcl_EYE_Close_R" });
+
+            var (data, vrm, _) = Export();
+
+            var expressions = vrm.VrmExtension.Expressions.Preset;
+            Assert.That(TargetName(data, expressions.Blink.MorphTargetBinds.Single()), Is.EqualTo("Fcl_EYE_Close"));
+            Assert.That(TargetName(data, expressions.BlinkLeft.MorphTargetBinds.Single()), Is.EqualTo("Fcl_EYE_Close_L"));
+            Assert.That(TargetName(data, expressions.BlinkRight.MorphTargetBinds.Single()), Is.EqualTo("Fcl_EYE_Close_R"));
+        }
+
+        /// <summary>Japanese avatars often name the blink in romaji.</summary>
+        [Test]
+        public void FindsABlinkNamedInRomaji()
+        {
+            Recreate(shapeKeys: new[] { "eye_mabataki" });
+
+            var (data, vrm, _) = Export();
+
+            Assert.That(TargetName(data, vrm.VrmExtension.Expressions.Preset.Blink.MorphTargetBinds.Single()), Is.EqualTo("eye_mabataki"));
+        }
+
+        /// <summary>Some avatars keep the VRChat wink keys only as names and close the eyes with another key.</summary>
+        [Test]
+        public void SplitsTheBlinkWhenTheWinkKeysBarelyMove()
+        {
+            Recreate(shapeKeys: new[] { "vrc.blink_left", "vrc.blink_right", "Blink" }, placeholders: new[] { "vrc.blink_left", "vrc.blink_right" });
+
+            var (data, vrm, report) = Export();
+
+            var expressions = vrm.VrmExtension.Expressions.Preset;
+            Assert.That(TargetName(data, expressions.BlinkLeft.MorphTargetBinds.Single()), Is.EqualTo("Blink_L"));
+            Assert.That(TargetName(data, expressions.BlinkRight.MorphTargetBinds.Single()), Is.EqualTo("Blink_R"));
+            Assert.That(report.Notes, Has.Some.EqualTo(new Message("Report:PlaceholderWinks", "vrc.blink_left", "vrc.blink_right")));
         }
 
         [Test]
@@ -193,6 +235,20 @@ namespace VCam.AvatarExporter
             Assert.That(TargetName(data, expressions.Preset.Oh.MorphTargetBinds.Single()), Is.EqualTo("vrc.v_oh"));
             Assert.That(expressions.Preset.Ih?.MorphTargetBinds, Is.Null.Or.Empty);
             Assert.That(expressions.Custom?.Keys ?? Enumerable.Empty<string>(), Has.None.StartsWith("vrc.v_"));
+        }
+
+        [Test]
+        public void DoesNotWinkWithKeysThatBarelyMoveWhenSplittingIsOff()
+        {
+            Recreate(shapeKeys: new[] { "vrc.blink_left", "vrc.blink_right", "Blink" }, placeholders: new[] { "vrc.blink_left", "vrc.blink_right" });
+
+            var (_, vrm, report) = Export(splitsBlink: false);
+
+            var expressions = vrm.VrmExtension.Expressions.Preset;
+            Assert.That(expressions.BlinkLeft?.MorphTargetBinds, Is.Null.Or.Empty);
+            Assert.That(expressions.BlinkRight?.MorphTargetBinds, Is.Null.Or.Empty);
+            Assert.That(report.Notes, Has.Some.EqualTo(new Message("Report:PlaceholderWinks", "vrc.blink_left", "vrc.blink_right")));
+            Assert.That(report.Notes.Select(note => note.Key), Has.None.EqualTo("Report:SplitBlink"));
         }
 
         [Test]

@@ -194,6 +194,9 @@ msgstr "The mouth shapes are the FX layer's animations the Viseme parameter play
 msgid "Report:NoBlink"
 msgstr "No blink shape key was found, so the avatar does not blink."
 
+msgid "Report:PlaceholderWinks"
+msgstr "The shape keys {0} and {1} barely move, so they aren't used for winks."
+
 msgid "Report:SplitBlink"
 msgstr "The shape key {0} on {1} closes both eyes, so it is split into one for each eye to let the avatar wink."
 

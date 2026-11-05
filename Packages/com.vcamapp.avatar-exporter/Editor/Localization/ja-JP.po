@@ -194,6 +194,9 @@ msgstr "口の形は、Viseme パラメーターで FX レイヤーが {0} に�
 msgid "Report:NoBlink"
 msgstr "まばたきのシェイプキーが見つからなかったので、アバターはまばたきしません。"
 
+msgid "Report:PlaceholderWinks"
+msgstr "シェイプキー {0} と {1} はほとんど動かないので、ウインクには使いません。"
+
 msgid "Report:SplitBlink"
 msgstr "{1} のシェイプキー {0} は両目を閉じるので、ウインクできるよう片目ずつに分けました。"
 
