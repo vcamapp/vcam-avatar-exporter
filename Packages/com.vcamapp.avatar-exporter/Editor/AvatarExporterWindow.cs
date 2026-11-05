@@ -70,6 +70,7 @@ namespace VCam.AvatarExporter
             _options.MaxTextureSize = EditorGUILayout.IntPopup(
                 Content("Window:MaxTextureSize"), _options.MaxTextureSize, TextureSizeLabels(), TextureSizes);
             _options.SplitsBlink = EditorGUILayout.Toggle(Content("Window:Winks"), _options.SplitsBlink);
+            _options.KeepsAllShapeKeys = EditorGUILayout.Toggle(Content("Window:AllShapeKeys"), _options.KeepsAllShapeKeys);
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField(Strings.Tr("Window:License"), EditorStyles.boldLabel);

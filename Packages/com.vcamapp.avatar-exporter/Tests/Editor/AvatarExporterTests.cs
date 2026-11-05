@@ -45,11 +45,11 @@ namespace VCam.AvatarExporter
         private static bool Mentions(Message note, string name) =>
             note.Args.OfType<string>().Any(text => text.Split(new[] { ", " }, System.StringSplitOptions.None).Contains(name));
 
-        private (GltfData Data, Vrm10Data Vrm, ExportReport Report) Export(int maxTextureSize = 2048, bool splitsBlink = true)
+        private (GltfData Data, Vrm10Data Vrm, ExportReport Report) Export(int maxTextureSize = 2048, bool splitsBlink = true, bool keepsAllShapeKeys = false)
         {
             var options = new ExportOptions
             {
-                Meta = { Name = "Test", Authors = { "Tester" } }, MaxTextureSize = maxTextureSize, SplitsBlink = splitsBlink,
+                Meta = { Name = "Test", Authors = { "Tester" } }, MaxTextureSize = maxTextureSize, SplitsBlink = splitsBlink, KeepsAllShapeKeys = keepsAllShapeKeys,
             };
             var report = AvatarExporter.Export(_avatar, options, _path);
             var data = new GlbBinaryParser(File.ReadAllBytes(_path), _path).Parse();
@@ -249,6 +249,15 @@ namespace VCam.AvatarExporter
             Assert.That(expressions.BlinkRight?.MorphTargetBinds, Is.Null.Or.Empty);
             Assert.That(report.Notes, Has.Some.EqualTo(new Message("Report:PlaceholderWinks", "vrc.blink_left", "vrc.blink_right")));
             Assert.That(report.Notes.Select(note => note.Key), Has.None.EqualTo("Report:SplitBlink"));
+        }
+
+        [Test]
+        public void KeepsShapeKeysNoExpressionUsesWhenAsked()
+        {
+            var (data, _, _) = Export(keepsAllShapeKeys: true);
+
+            var targetNames = data.Json.ParseAsJson()["meshes"][0]["extras"]["targetNames"].ArrayItems().Select(name => name.GetString());
+            Assert.That(targetNames, Has.Member("BodyShape"));
         }
 
         [Test]

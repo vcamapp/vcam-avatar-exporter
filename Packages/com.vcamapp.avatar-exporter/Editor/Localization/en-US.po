@@ -47,6 +47,12 @@ msgstr "Winks"
 msgid "Window:WinksTooltip"
 msgstr "When the avatar blinks both eyes with one shape key, splits it into one for each eye so the avatar can wink. Adds two shape keys."
 
+msgid "Window:AllShapeKeys"
+msgstr "Keep all shape keys"
+
+msgid "Window:AllShapeKeysTooltip"
+msgstr "Also keeps the shape keys no expression uses, so other tools can add Perfect Sync or expressions to the VRM later. The file gets larger."
+
 msgid "Window:License"
 msgstr "License"
 

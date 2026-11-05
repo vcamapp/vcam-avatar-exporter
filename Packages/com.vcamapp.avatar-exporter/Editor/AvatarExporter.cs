@@ -65,7 +65,7 @@ namespace VCam.AvatarExporter
                 copy.GetComponent<UniHumanoid.Humanoid>().AssignBonesFromAnimator();
                 HierarchyCleanup.RemoveLeftovers(copy);
 
-                File.WriteAllBytes(path, Write(copy, lilToonSources, immobileJoints, textures, created, report));
+                File.WriteAllBytes(path, Write(copy, lilToonSources, immobileJoints, textures, options.KeepsAllShapeKeys, created, report));
             }
             finally
             {
@@ -288,7 +288,7 @@ namespace VCam.AvatarExporter
         }
 
         /// <summary>UniVRM's export with mesh freezing, plus the lilToon and Immobile extensions.</summary>
-        private static byte[] Write(GameObject root, IReadOnlyDictionary<Material, LilToonSource> lilToonSources, IReadOnlyList<ImmobileJoint> immobileJoints, TextureLimiter textures, List<Object> created, ExportReport report)
+        private static byte[] Write(GameObject root, IReadOnlyDictionary<Material, LilToonSource> lilToonSources, IReadOnlyList<ImmobileJoint> immobileJoints, TextureLimiter textures, bool keepsAllShapeKeys, List<Object> created, ExportReport report)
         {
             var settings = new GltfExportSettings
             {
@@ -304,7 +304,10 @@ namespace VCam.AvatarExporter
             var meshes = BoneNormalizer.NormalizeHierarchyFreezeMesh(root, bakeCurrentBlendShape: true);
             BoneNormalizer.Replace(root, meshes, KeepRotation: false);
             created.AddRange(meshes.Values.Select(info => info.Mesh));
-            BlendShapeReducer.Reduce(root, root.GetComponent<Vrm10Instance>().Vrm.Expression, created);
+            if (!keepsAllShapeKeys)
+            {
+                BlendShapeReducer.Reduce(root, root.GetComponent<Vrm10Instance>().Vrm.Expression, created);
+            }
             UniqueJoints.Apply(root);
 
             var converter = new ModelExporter();

@@ -47,6 +47,12 @@ msgstr "眨单眼"
 msgid "Window:WinksTooltip"
 msgstr "如果 Avatar 用一个形态键同时闭上双眼，会将其拆分为左右眼各一个，使 Avatar 能够眨单眼。会新增两个形态键。"
 
+msgid "Window:AllShapeKeys"
+msgstr "全部形态键"
+
+msgid "Window:AllShapeKeysTooltip"
+msgstr "也保留表情未使用的形态键，便于之后用其他工具为 VRM 添加 Perfect Sync 或表情。文件会变大。"
+
 msgid "Window:License"
 msgstr "许可"
 

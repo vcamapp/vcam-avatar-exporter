@@ -47,6 +47,12 @@ msgstr "ウインク"
 msgid "Window:WinksTooltip"
 msgstr "両目を1つのシェイプキーで閉じるアバターでは、ウインクできるよう片目ずつのシェイプキーに分けます。シェイプキーが2つ増えます。"
 
+msgid "Window:AllShapeKeys"
+msgstr "すべてのシェイプキー"
+
+msgid "Window:AllShapeKeysTooltip"
+msgstr "表情で使わないシェイプキーも残します。あとで別のツールで Perfect Sync や表情を足すときに使います。ファイルが大きくなります。"
+
 msgid "Window:License"
 msgstr "ライセンス"
 

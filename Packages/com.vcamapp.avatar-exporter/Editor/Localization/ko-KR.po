@@ -47,6 +47,12 @@ msgstr "윙크"
 msgid "Window:WinksTooltip"
 msgstr "한 개의 블렌드 셰이프로 두 눈을 감는 아바타라면, 윙크할 수 있도록 한쪽 눈씩 감는 블렌드 셰이프로 나눕니다. 블렌드 셰이프가 2개 늘어납니다."
 
+msgid "Window:AllShapeKeys"
+msgstr "모든 블렌드 셰이프"
+
+msgid "Window:AllShapeKeysTooltip"
+msgstr "표정에 쓰이지 않는 블렌드 셰이프도 남깁니다. 나중에 다른 도구로 Perfect Sync나 표정을 추가할 때 사용합니다. 파일이 커집니다."
+
 msgid "Window:License"
 msgstr "라이선스"
 

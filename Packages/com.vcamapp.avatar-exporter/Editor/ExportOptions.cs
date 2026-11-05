@@ -26,5 +26,10 @@ namespace VCam.AvatarExporter
         /// Makes a shape key for each eye from a blink that closes both, when the avatar has none, so it can wink.
         /// </summary>
         internal bool SplitsBlink = true;
+
+        /// <summary>
+        /// Keeps the shape keys no expression uses, for adding Perfect Sync or other expressions to the VRM later.
+        /// </summary>
+        internal bool KeepsAllShapeKeys;
     }
 }

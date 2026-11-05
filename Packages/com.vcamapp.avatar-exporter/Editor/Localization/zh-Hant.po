@@ -47,6 +47,12 @@ msgstr "單眼眨眼"
 msgid "Window:WinksTooltip"
 msgstr "如果 Avatar 以一個形態鍵同時閉上雙眼，會將其拆分為左右眼各一個，讓 Avatar 能夠單眼眨眼。會新增兩個形態鍵。"
 
+msgid "Window:AllShapeKeys"
+msgstr "全部形態鍵"
+
+msgid "Window:AllShapeKeysTooltip"
+msgstr "也保留表情未使用的形態鍵，方便之後用其他工具為 VRM 加入 Perfect Sync 或表情。檔案會變大。"
+
 msgid "Window:License"
 msgstr "授權"
 
