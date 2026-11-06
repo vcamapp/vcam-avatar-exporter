@@ -22,7 +22,7 @@ The property names and meanings of lilToon materials change between lilToon vers
 
 | Property | Type | Required | Description |
 | --- | --- | --- | --- |
-| `shader` | string | yes | Name of the lilToon shader in Unity, such as `"Hidden/lilToonCutoutOutline"`. It selects the rendering mode (opaque, cutout, transparent) and whether the outline pass is drawn |
+| `shader` | string | yes | Name of the lilToon shader in Unity, such as `"Hidden/lilToonCutoutOutline"`, or of a custom shader built on lilToon. It selects the rendering mode (opaque, cutout, transparent) and whether the outline pass is drawn |
 | `renderQueue` | integer | yes | Render queue of the material |
 | `fallbackBaseColorAlpha` | number | no | Written for a material drawn again only where a stencil allows (see below). Its MToon fallback keeps its textures and colors but has the base color alpha at 0 so that it draws nothing, and this is the alpha the fallback would otherwise have |
 | `floats` | object | no | lilToon float, range and integer properties, keyed by property name, such as `{ "_ShadowBorder": 0.5 }`. Integer properties are written as JSON integers |
@@ -30,7 +30,7 @@ The property names and meanings of lilToon materials change between lilToon vers
 | `vectors` | object | no | lilToon vector properties as `[x, y, z, w]`, keyed by property name |
 | `textures` | object | no | lilToon texture properties, keyed by property name. See below |
 
-Only properties defined by the lilToon shader are written. Readers ignore properties they do not know.
+Only properties defined by the material's shader are written, which for a custom shader includes its own. Readers ignore properties they do not know.
 
 lilToon grows outlines and fur along the mesh's normals, so their lengths scale with the mesh, which the export does not keep. `_OutlineWidth` and the `w` of `_FurVector` are written in the avatar's scale: multiplied by how many times longer the mesh's lengths are in the world as Unity draws it, such as 0.01 for a mesh modeled in centimeters.
 

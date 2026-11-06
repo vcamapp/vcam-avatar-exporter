@@ -586,6 +586,18 @@ namespace VCam.AvatarExporter
         }
 
         [Test]
+        public void TreatsACustomShaderBuiltOnLilToonAsLilToon()
+        {
+            var material = new Material(Shader.Find("Hidden/VCamAvatarExporterTests/CustomCutoutOutline"));
+
+            Assert.That(LilToonShader.TryGet(material, out var shader), Is.True);
+            Assert.That(shader.RenderingMode, Is.EqualTo(LilToonRenderingMode.Cutout));
+            Assert.That(shader.HasOutline, Is.True);
+            Assert.That(LilToonShader.TryGet(new Material(Shader.Find("Standard")), out _), Is.False);
+            Object.DestroyImmediate(material);
+        }
+
+        [Test]
         public void KeepsTheMainColorAlphaOnceWhenBakingTheMainColor()
         {
             var material = Skin;

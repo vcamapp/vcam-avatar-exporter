@@ -44,13 +44,13 @@ namespace VCam.AvatarExporter
 
         internal static bool TryGet(Material material, out LilToonShader shader)
         {
-            var name = material != null && material.shader != null ? material.shader.name : null;
-            if (name == null || !name.Contains("lilToon"))
+            // Custom shaders built on lilToon name themselves freely, so the name cannot tell them apart.
+            if (material == null || material.shader == null || !material.HasProperty("_lilToonVersion"))
             {
                 shader = default;
                 return false;
             }
-            shader = new LilToonShader(name);
+            shader = new LilToonShader(material.shader.name);
             return true;
         }
     }
