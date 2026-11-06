@@ -1,7 +1,7 @@
 {
   "name": "com.vcamapp.avatar-exporter",
   "displayName": "VCam Avatar Exporter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "unity": "2022.3",
   "description": "Exports a VRChat avatar as a VRM for VCam and VCam Camera, keeping its outfit, expressions and sway bones, and recording its lilToon settings.",
   "author": {
