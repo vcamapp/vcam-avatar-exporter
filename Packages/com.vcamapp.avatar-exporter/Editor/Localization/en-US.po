@@ -203,6 +203,9 @@ msgstr "No blink shape key was found, so the avatar does not blink."
 msgid "Report:PlaceholderWinks"
 msgstr "The shape keys {0} and {1} barely move, so they aren't used for winks."
 
+msgid "Report:OneEyeBlink"
+msgstr "The avatar's eyelid setting uses {0}, which closes one eye, so the blink closes both eyes instead."
+
 msgid "Report:SplitBlink"
 msgstr "The shape key {0} on {1} closes both eyes, so it is split into one for each eye to let the avatar wink."
 

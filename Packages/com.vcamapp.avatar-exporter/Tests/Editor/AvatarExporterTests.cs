@@ -106,6 +106,58 @@ namespace VCam.AvatarExporter
             Assert.That(report.Notes, Has.Some.EqualTo(new Message("Report:SplitBlink", "Blink", "Body")));
         }
 
+        private void DescribeBlink(string shapeKey)
+        {
+            var eyeLook = Descriptor.customEyeLookSettings;
+            eyeLook.eyelidsBlendshapes = new[] { Body.sharedMesh.GetBlendShapeIndex(shapeKey), -1, -1 };
+            Descriptor.customEyeLookSettings = eyeLook;
+        }
+
+        /// <summary>An avatar can name a key for one eye as its blink, which would only ever wink.</summary>
+        [Test]
+        public void BlinksWithBothEyesWhenTheDescriptorNamesOneEye()
+        {
+            Recreate(shapeKeys: new[] { "eye_blink", "eye_blink_L", "eye_blink_R" });
+            DescribeBlink("eye_blink_L");
+
+            var (data, vrm, report) = Export();
+
+            var expressions = vrm.VrmExtension.Expressions.Preset;
+            Assert.That(TargetName(data, expressions.Blink.MorphTargetBinds.Single()), Is.EqualTo("eye_blink"));
+            Assert.That(TargetName(data, expressions.BlinkLeft.MorphTargetBinds.Single()), Is.EqualTo("eye_blink_L"));
+            Assert.That(TargetName(data, expressions.BlinkRight.MorphTargetBinds.Single()), Is.EqualTo("eye_blink_R"));
+            Assert.That(report.Notes, Has.Some.EqualTo(new Message("Report:OneEyeBlink", "eye_blink_L")));
+        }
+
+        /// <summary>With no key for both eyes, the two keys for one eye close them together.</summary>
+        [Test]
+        public void BlinksWithBothSidesWhenTheDescriptorNamesOneEyeOfAPair()
+        {
+            Recreate(shapeKeys: new[] { "lid_R", "lid_L" });
+            DescribeBlink("lid_R");
+
+            var (data, vrm, report) = Export();
+
+            var expressions = vrm.VrmExtension.Expressions.Preset;
+            Assert.That(expressions.Blink.MorphTargetBinds.Select(bind => TargetName(data, bind)), Is.EquivalentTo(new[] { "lid_L", "lid_R" }));
+            Assert.That(TargetName(data, expressions.BlinkLeft.MorphTargetBinds.Single()), Is.EqualTo("lid_L"));
+            Assert.That(TargetName(data, expressions.BlinkRight.MorphTargetBinds.Single()), Is.EqualTo("lid_R"));
+            Assert.That(report.Notes, Has.Some.EqualTo(new Message("Report:OneEyeBlink", "lid_R")));
+        }
+
+        /// <summary>A name that only ends like a side is still the avatar's own choice of blink.</summary>
+        [Test]
+        public void KeepsTheDescriptorsBlinkWhoseNameOnlyEndsLikeASide()
+        {
+            Recreate(shapeKeys: new[] { "eye_bright", "Blink" });
+            DescribeBlink("eye_bright");
+
+            var (data, vrm, report) = Export();
+
+            Assert.That(TargetName(data, vrm.VrmExtension.Expressions.Preset.Blink.MorphTargetBinds.Single()), Is.EqualTo("eye_bright"));
+            Assert.That(report.Notes.Select(note => note.Key), Has.None.EqualTo("Report:OneEyeBlink"));
+        }
+
         /// <summary>Avatars made in VRoid Studio keep its face shape key names.</summary>
         [Test]
         public void FindsTheBlinksOfVRoidStudio()

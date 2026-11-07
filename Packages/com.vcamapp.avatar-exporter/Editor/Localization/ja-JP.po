@@ -203,6 +203,9 @@ msgstr "まばたきのシェイプキーが見つからなかったので、ア
 msgid "Report:PlaceholderWinks"
 msgstr "シェイプキー {0} と {1} はほとんど動かないので、ウインクには使いません。"
 
+msgid "Report:OneEyeBlink"
+msgstr "アバターの目の設定はシェイプキー {0} を使っていますが、片目だけを閉じるキーなので、まばたきは両目を閉じるようにします。"
+
 msgid "Report:SplitBlink"
 msgstr "{1} のシェイプキー {0} は両目を閉じるので、ウインクできるよう片目ずつに分けました。"
 

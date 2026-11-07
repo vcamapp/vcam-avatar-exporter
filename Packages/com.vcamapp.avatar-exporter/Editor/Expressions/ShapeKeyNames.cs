@@ -41,6 +41,29 @@ namespace VCam.AvatarExporter
             return -1;
         }
 
+        /// <summary>The key for the other eye of a key for one eye, or -1 when <paramref name="name"/> isn't one.</summary>
+        internal int FindOtherSide(string name)
+        {
+            var normalized = Normalize(name);
+            return normalized.EndsWith("left") ? Find(Stem(normalized, "left") + "right")
+                : normalized.EndsWith("right") ? Find(Stem(normalized, "right") + "left")
+                : -1;
+        }
+
+        /// <summary>The key that a key for one eye is the side of, or -1 when the mesh has none.</summary>
+        internal int FindWithoutSide(string name)
+        {
+            var normalized = Normalize(name);
+            var stem = normalized.EndsWith("left") ? Stem(normalized, "left")
+                : normalized.EndsWith("right") ? Stem(normalized, "right")
+                : null;
+            return stem == null ? -1 : Find(stem);
+        }
+
+        internal static bool IsLeft(string name) => Normalize(name).EndsWith("left");
+
+        private static string Stem(string normalized, string side) => normalized.Substring(0, normalized.Length - side.Length);
+
         private static string Normalize(string name)
         {
             var lower = name.ToLowerInvariant();

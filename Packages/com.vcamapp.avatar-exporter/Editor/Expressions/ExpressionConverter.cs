@@ -173,7 +173,30 @@ namespace VCam.AvatarExporter
         /// <returns>The mesh the blink is on, or null when the avatar has none.</returns>
         private static SkinnedMeshRenderer ConvertBlink(VRM10ObjectExpression expression, GameObject root, VRCAvatarDescriptor descriptor, List<(SkinnedMeshRenderer Renderer, ShapeKeyNames Names)> renderers, bool splitsBlink, ICollection<UnityEngine.Object> created, ExportReport report)
         {
-            var blink = DescriptorBlink(descriptor) ?? FindFirst(renderers, BlinkNames, report, "Purpose:Blink");
+            var described = DescriptorBlink(descriptor);
+            if (described is { } key)
+            {
+                var names = new ShapeKeyNames(key.Renderer.sharedMesh);
+                var name = key.Renderer.sharedMesh.GetBlendShapeName(key.Index);
+                var otherEye = names.FindOtherSide(name);
+                if (otherEye >= 0)
+                {
+                    // A blink on a key for one eye would only ever wink.
+                    report.Add("Report:OneEyeBlink", name);
+                    var bothEyes = names.FindWithoutSide(name);
+                    if (bothEyes < 0)
+                    {
+                        var eye = Binding(root.transform, key.Renderer, key.Index);
+                        var other = Binding(root.transform, key.Renderer, otherEye);
+                        expression.Blink = Create("blink", eye, other);
+                        expression.BlinkLeft = Create("blinkLeft", ShapeKeyNames.IsLeft(name) ? eye : other);
+                        expression.BlinkRight = Create("blinkRight", ShapeKeyNames.IsLeft(name) ? other : eye);
+                        return key.Renderer;
+                    }
+                    described = (key.Renderer, bothEyes);
+                }
+            }
+            var blink = described ?? FindFirst(renderers, BlinkNames, report, "Purpose:Blink");
             if (blink is not { } both)
             {
                 report.Add("Report:NoBlink");

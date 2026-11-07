@@ -203,6 +203,9 @@ msgstr "눈 깜빡임 블렌드 셰이프를 찾지 못해서 아바타가 눈�
 msgid "Report:PlaceholderWinks"
 msgstr "블렌드 셰이프 {0}와(과) {1}은(는) 거의 움직이지 않으므로 윙크에 사용하지 않습니다."
 
+msgid "Report:OneEyeBlink"
+msgstr "아바타의 눈 설정이 한쪽 눈만 감는 블렌드 셰이프 {0}을(를) 사용하므로, 눈 깜빡임은 양쪽 눈을 감도록 합니다."
+
 msgid "Report:SplitBlink"
 msgstr "{1}의 블렌드 셰이프 {0}은(는) 두 눈을 감으므로, 윙크할 수 있도록 한쪽 눈씩 나눴습니다."
 

@@ -203,6 +203,9 @@ msgstr "未找到眨眼的形態鍵，因此 Avatar 不會眨眼。"
 msgid "Report:PlaceholderWinks"
 msgstr "形態鍵 {0} 和 {1} 幾乎不動，因此不用於眨單眼。"
 
+msgid "Report:OneEyeBlink"
+msgstr "虛擬形象的眼睛設定使用了形態鍵 {0}，它只閉上一隻眼，因此眨眼改為閉上雙眼。"
+
 msgid "Report:SplitBlink"
 msgstr "{1} 的形態鍵 {0} 會同時閉上雙眼，因此已拆分為左右眼各一個，讓 Avatar 能夠單眼眨眼。"
 
